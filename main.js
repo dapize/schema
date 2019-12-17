@@ -1,52 +1,58 @@
 const schema = {
+
   image: {
-    type: Object,
+    type: 'object',
     properties: {
-      srcset: String
+      srcset: 'string'
     }
   },
+
   preTitle: {
-    type: Object,
+    type: 'object',
     properties: {
-      text: String,
+      text: 'string',
       classes: {
-        type: String,
+        type: 'string',
         default: 'lh-color-light-blue'
       }
     }
   },
+
   title: {
-    type: Object,
+    type: 'object',
     properties: {
       text: {
-        type: String,
+        type: 'string',
         required: true
       },
       classes: {
-        type: String,
-        default: 'lh-typo__sectitle lh-typo__sectitle--2'
+        type: 'string',
+        default: 'lh-typo lh-typo__sectitle lh-typo__sectitle--2'
       }
-    }
-  },
-  description: {
-    type: Object,
-    properties: {
-      text: String,
-      classes: {
-        type: String,
-        default: 'lh-typo__p2'
-      }
-    }
-  },
-  list: {
-    type: Array,
-    items: []
-  },
-  order: {
-    type: Number,
+    },
     required: true
   },
-  cualquiera: [Number, String]
+
+  description: {
+    type: 'object',
+    properties: {
+      text: 'string',
+      classes: {
+        type: 'string',
+        default: 'lh-typo lh-typo__p2'
+      }
+    }
+  },
+
+  cualquiera: {
+    type: ['number', 'string'],
+    required: true
+  },
+
+  cancion: {
+    type: 'string',
+    required: true
+  }
 };
 
 const response = {
@@ -63,12 +69,22 @@ const response = {
   },
   "description": {
     "text": ["Nosotros nunca te pediremos tus contraseñas, fecha de cumpleaños, lugar de nacimiento, nombre de familiares ni demás datos personales."]
-  },
-  "order": 4
+  }
 }
 
-const validResponse = Smart.schema(schema, response);
+const headerSchema = new Schema(schema);
+const isValid = headerSchema.validate(response);
 
-console.log('equal: ', validResponse.equal());
-console.log('missing: ', validResponse.missing)
-console.log('different: ', validResponse.different)
+if (isValid) {
+  console.log('si es válido: ', isValid);
+} else {
+  console.log('no es válido: ', isValid);
+}
+
+const modHeader = {
+  "badge": "string"
+};
+
+const headerExtended = headerSchema.extend(modHeader);
+
+console.log(headerExtended);

@@ -1,90 +1,93 @@
 (function (root) {
-  if (!root.Smart) root.Smart = {};
 
-  // Utils
-  /**
-   * 
-   * @param {Object} obj Objeto a separar
-   * @param {string} type Tipo de separación 'pura', '
-   */
-  const splitObj = function (obj, type) {
-    const excluded = ['type', 'default', 'required'];
-    const pure = {};
-
-    Object.keys(obj).forEach(function (keyname) {
-      if (excluded.indexOf(keyname) === -1) {
-        
-      } else {
-
-      }
-      container[keyname] = obj[keyname];
-    });
-  }
-
-  function Checker (schema, obj) {
-    this.schema = schema;
-    this.obj = obj;
-  }; 
-
-  Checker.prototype.missing = [];
-  Checker.prototype.different = [];
-
-  /**
-   * Verifica si en el objeto 1 existen las propiedades del objeto 2.
-   * @param {Object} obj1 Objeto a comprobar
-   * @param {Object} obj2 Objeto base de donde comprobar
-   * @returns {Boolean}
-   */
-  Checker.prototype.equal = function () {
-    const objSchema = this.schema;
-    const keysSchema = Object.keys(objSchema);
-    const obj = this.obj;
-    
-    // checking by exists keys
-    const isLiteral = this.objLiteral;
-    const different = [];
-    const missing = [];
-    let currentObj;
-    keysSchema.forEach(function (keyname) {
-      currentObj = objSchema[keyname];
-      if (obj.hasOwnProperty(keyname)) {
-        if (isLiteral(currentObj)) {
-          currentObj = currentObj.type;
-        }
-        if (currentObj !== obj[keyname].constructor) {
-          different.push(keyname);
-        }
-      } else {
-        if (isLiteral(currentObj) && currentObj.required) {
-          missing.push(keyname);
-        }
-      }
-    });
-
-    if (missing.length) {
-      this.missing = missing;
-      return false;
-    }
-
-    if (different.length) {
-      this.different = different;
-      return false;
-    }
-
-    return true;
-  };
+  // UTILS
 
   /**
    * Verifica si el objeto pasado es un objeto literal.
    * @param {Object} obj Objeto a verificar
    * @returns {Boolean}
    */
-  Checker.prototype.objLiteral = function (obj) {
+  const objLiteral = function (obj) {
     return Object.prototype.toString.call(obj).toLowerCase() === '[object object]'
   };
 
-  root.Smart.schema = function (schema, response) {
-    if (typeof response === 'string') response = JSON.parse(response);
-    return new Checker(schema, response);
+  /**
+   * Obtiene el tipo del valor pasado.
+   * @param {Object|String} value El string y objecto que contiene el valor del objeto
+   * @return {String}
+   */
+  const getType = function (value) {
+    let retorno;
+    if (Array.isArray(value)) {
+      retorno = 'array';
+    } else {
+      retorno = objLiteral(value) ? 'object' : typeof value;
+    }
+    return retorno;
   };
+
+
+  // CONSTRUCTOR
+  function Schema (obj) {
+    const _this = this;
+    Object.keys(obj).forEach(function (property) {
+      _this[property] = obj[property];
+    });
+  };
+
+  // METHODS AND PROPERTIES
+  Schema.prototype.validate = function (obj) {
+    const _this = this;
+    let retorno = true; // ¿Is valid?
+
+    Object.keys(_this).forEach(function (property) {
+      // if dont exits the property in the response...
+      if (!obj.hasOwnProperty(property)) {
+        if (_this[property].required) { // ... dont exits but is not required, ¡continuous!
+          _this.missings.push(property);
+        }
+      } else {
+        const valPropertyObj = obj[property];
+        const getTypeObj = getType(valPropertyObj);
+        // cheking if can be multiples types (a array of types)
+        const valPropertySchema = _this[property];
+        const getTypeSchema = getType(valPropertySchema);
+        if (getTypeSchema === 'array') {
+          const typesValid = valPropertySchema.filter(function (type) {
+            return type === getTypeObj;
+          });
+          // no body match with any types items.
+          if (!typesValid.length && valPropertyObj.required) { // ... just if is required
+            retorno = false;
+            _this.different.push(valPropertyObj);
+          }
+        } else {
+          // is different type and is required this property
+          if (getTypeObj !== getTypeSchema && valPropertyObj.required) {
+            retorno = false;
+            _this.different.push(valPropertyObj);
+          } else {
+            // is the same type property obj of type property schema
+            // TODO: me quedé ACA, continuar trabajando desde aquí.
+          }
+        }
+      }
+    });
+
+    // Missings
+    if (_this.missings.length) retorno = false;
+
+    // Returning
+    return retorno;
+  };
+
+  Schema.prototype.extend = function () {
+  };
+
+  Schema.prototype.missings = [];
+  Schema.prototype.different = [];
+
+  // EXPORTING
+  root.Schema = Schema;
+
 }(window));
