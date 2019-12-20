@@ -1,15 +1,37 @@
-const response = {
+const response3 = {
+
   "image": "images/icons/icon-fraude.png 1x",
-  "title": "Fraudes electrónicos"
+
+  "preTitle": {
+    "text": "más rápida y cómoda",
+    "classes": "lh-color-light-blue"
+  }
 };
 
-const schema = {
-  image: 'boolean',
-  title: 'number'
-};
+const schema3 = {
+
+  image: {
+    type: 'string'
+  },
+
+  preTitle: {
+    type: 'object',
+    properties: {
+      text: 'string',
+      classes: {
+        type: 'string',
+        default: 'lh-color-light-blue'
+      },
+      tag: {
+        type: 'string',
+        default: 'div'
+      }
+    }
+  }
+}
 
 
-const response2 = {
+const response = {
   "image": {
     "srcset": "images/icons/icon-fraude.png 1x, images/icons/icon-fraude@2x.png 2x"
   },
@@ -26,7 +48,7 @@ const response2 = {
   }
 };
 
-const schema2 = {
+const schema = {
 
   image: {
     type: 'object',
@@ -83,9 +105,7 @@ const schema2 = {
       }
     }
   }
-
 };
-
 
 const headerSchema = new Schema(schema);
 const isValid = headerSchema.validate(response);
@@ -94,6 +114,7 @@ console.log('\n\n');
 console.log('isValid: ', isValid);
 console.dir('different: ', headerSchema.different);
 console.dir('missings: ', headerSchema.missings);
+console.dir('errors: ', headerSchema.errors);
 /*
 const modHeader = {
   "badge": "string"
