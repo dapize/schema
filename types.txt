@@ -1,0 +1,71 @@
+// VAL STRING
+
+const schema = {
+  image: 'string'
+}
+
+const schema = {
+  image: {
+    type: 'string'
+  }
+};
+
+const schema = {
+  image: {
+    type: 'string',
+    required: true
+  }
+};
+
+
+
+
+// ARRAY
+
+const schema = {
+  images: 'array'
+}
+
+const schema = {
+  images: {
+    type: 'array'
+  }
+};
+
+const schema = {
+  images: {
+    type: 'array',
+    required: true
+  }
+};
+
+
+
+
+// VAL OBJECT
+
+const schema = {
+  image: 'object' // WRONG WAY
+}
+
+const schema = {
+  image: {
+    type: 'object', // GOOD WAY
+    properties: {
+      srcset: 'string'
+    }
+  }
+};
+
+const schema = {
+  image: {
+    type: 'object',
+    properties: {
+      srcset: {
+        type: 'string',
+        required: true
+      }
+    },
+    required: true
+  }
+};
