@@ -108,6 +108,15 @@
 
           case 'array': 
             console.log('es array');
+            if (valPropSchema !== getTypeValObj && valPropSchema.required) {
+              retorno = false;
+              _this.different.push({
+                name: property,
+                current: getTypeValObj,
+                expected: 'array',
+                value: valPropObj
+              });
+            }
             
             break;
           

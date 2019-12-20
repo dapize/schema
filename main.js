@@ -3,7 +3,10 @@ const response = {
 };
 
 const schema = {
-  image: 'array'
+  image: {
+    type: 'array',
+    required: true
+  }
 };
 
 
