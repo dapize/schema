@@ -44,29 +44,33 @@
   };
 
   /**
-   * Verifica la existencia de una propiedad en un objeto determinado
-   * Si la propiedad no existe, se guarda en un array llamado 'missings'
-   * @param {Object} obj Objeto donde verificar la existencia de la propiedad
-   * @param {String} property Nombre de la propiedad a verificar su existencia
-   * @returns {Boolean}
+   * Registra incidentes dentro de un objeto, para que sirva de log.
+   * @param {String} propName Nombre de la propiedad a crear dentro del objeto.
+   * @param {Object} data Objeto que contendrá información de la propiedad faltante.
+   * @param {Object} objTarget Objeto destino en donde se crearán los registros.
+   * @returns {Boolean} Registro exitoso: true. Intento de registro duplicado: false
    */
-  const existsProp = function (obj, property, propParent) {
-    const parent = propParent === undefined ? '' : propParent + '.';
-    let exists = true;
-    if (!obj.hasOwnProperty(property)) {
-      exists = false;
-      this.missings.push(parent + property);
+  const reg = function (target, propName, data) {
+    let retorno = false;
+    if (Array.isArray(target)) { // reg in list. (Errors)
+      target.push(data);
+      retorno = true;
+    } else {
+      if (!target.hasOwnProperty(propName)) {
+        target[propName] = data;
+        retorno = true;
+      }
     }
-    return exists;
-  }
+    return retorno;
+  };
 
-
+  
   // CONSTRUCTOR
   function Schema (obj) {
     this.schema = Object.assign({}, obj);
-    //this.
     this.missings = [];
-    this.different = [];
+    this.different = {};
+    this.errors = [];
   };
 
   // PROTO
@@ -76,28 +80,28 @@
   proto.validate = function (response) {
     const schema = this.schema,
           _this = this;
-    let retorno = true; // ¿Is valid?
+    let retorno = true; // by default, is valid :)
 
     Object.keys(schema).forEach(function (property) {
-      if (existsProp.call(_this, response, property)) {
+      if (response.hasOwnProperty(property)) {
+        // Data from response
         const valPropObj = response[property];
         const getTypeValObj = getType(valPropObj);
 
-        // cheking if can be multiples types (a array of types)
+        // Data form schema
         const valPropSchema = schema[property];
-        const getTypeValSchema = getType(valPropSchema); // getting the type from the value not from the property 'type'
-        console.log('getTypeValSchema: ', getTypeValSchema);
+        const getTypeValSchema = getType(valPropSchema);
 
         switch (getTypeValSchema) {
           case 'string': // dont exists 'required', obiusly.
             console.log('es string');
             // can be: 'string', 'number', 'boolean' or 'array' but never 'object' (because a object can't be declare of simple way).
-            if (valPropSchema === 'object') { // * bad 'schema structure' designed (by back developer).
+            if (valPropSchema === 'object') { // * bad 'schema structure' builded (by frontEnd developer).
+              reg(_this.errors, null, 'Is not possible set the type "object" in "simple way".')
               retorno = false;
             } else {
               if (valPropSchema !== getTypeValObj) {
-                _this.different.push({
-                  name: property,
+                reg(_this.different, property, {
                   current: getTypeValObj,
                   expected: valPropSchema,
                   value: valPropObj
@@ -108,32 +112,32 @@
 
           case 'array': 
             console.log('es array');
-            if (valPropSchema !== getTypeValObj && valPropSchema.required) {
-              retorno = false;
-              _this.different.push({
-                name: property,
+            if (valPropSchema !== getTypeValObj) {
+              if (valPropSchema.required) retorno = false;
+              reg(_this.different, property, {
                 current: getTypeValObj,
                 expected: 'array',
                 value: valPropObj
               });
-            }
-            
+            };
             break;
           
           case 'object':
             console.log('es objecto');
-            if (!existsProp(valPropSchema, 'type')) { // * missing important property. If is object, have to exists the 'type' property.
+            if (!valPropSchema.hasOwnProperty('type')) { // * missing important property. If is object, have to exists the 'type' property. Error of frontEnd developer.
+              reg(_this.errors, null, 'Is the value of a property is a object have to create the property "type".')
               retorno = false;
             } else {
               if (getTypeValObj === 'object') {
-                if (!existsProp(valPropObj, 'properties')) { // * missing important property. If is object, have to exists the 'properties' property.
+                if (!valPropObj.hasOwnProperty('properties')) { // * missing important property. If is object, have to exists the 'properties' property.
                   if (valPropSchema.required) retorno = false;
+                } else {
+                  reg(_this.errors, null, 'Dont exists the property "properties" in the object.');
                 }
               } else {
                 if (valPropSchema.required) {
                   retorno = false;
-                  _this.different.push({
-                    name: property,
+                  reg(_this.different, property,{
                     current: getTypeValObj,
                     expected: getTypeValSchema,
                     value: valPropObj
@@ -147,6 +151,7 @@
             console.log('es mixed');
             const typesList = valPropSchema.type;
             if (typesList.indexOf('object') !== -1) { // a type 'object' can be declare in 'simple way' nor in a 'multi types' way.
+              reg(_this.errors, null, 'Is not possible set the type "object" in a property of mixed types.');
               retorno = false;
             } else {
               const typesValid = typesList.filter(function (type) {
@@ -155,8 +160,7 @@
               // no body match with any types items.
               if (!typesValid.length && valPropSchema.required) { 
                 retorno = false;
-                _this.different.push({
-                  name: property,
+                reg(_this.different, property, {
                   current: getTypeValObj,
                   expected: typesList,
                   value: valPropObj
@@ -168,6 +172,8 @@
           default:
             console.log('es cualquiera otra cosa');
         }
+      } else {
+        reg(_this.missings, null, 'Dont exist the variable "' + property + '" in the object');
       }
     });
 

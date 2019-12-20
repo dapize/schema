@@ -1,12 +1,11 @@
 const response = {
-  "image": "images/icons/icon-fraude.png 1x"
+  "image": "images/icons/icon-fraude.png 1x",
+  "title": "Fraudes electrónicos"
 };
 
 const schema = {
-  image: {
-    type: 'array',
-    required: true
-  }
+  image: 'boolean',
+  title: 'number'
 };
 
 
@@ -91,14 +90,10 @@ const schema2 = {
 const headerSchema = new Schema(schema);
 const isValid = headerSchema.validate(response);
 
-if (isValid) {
-  console.log('si es válido: ', isValid);
-  const responseCompiled = headerSchema.compile(response);
-  console.log(responseCompiled);
-} else {
-  console.log('no es válido: ', isValid);
-}
-console.dir(headerSchema.different)
+console.log('\n\n');
+console.log('isValid: ', isValid);
+console.dir('different: ', headerSchema.different);
+console.dir('missings: ', headerSchema.missings);
 /*
 const modHeader = {
   "badge": "string"
