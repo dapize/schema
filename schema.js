@@ -30,7 +30,15 @@
     if (Array.isArray(value)) {
       retorno = 'array';
     } else {
-      retorno = objLiteral(value) ? 'object' : typeof value;
+      if (objLiteral(value)) {
+        if (value.hasOwnProperty('type')) {
+          retorno = Array.isArray(value.type) ? 'mixed' : value.type
+        } else {
+          retorno = 'object';
+        }
+      } else {
+        retorno = typeof value;
+      }
     }
     return retorno;
   };
@@ -78,9 +86,11 @@
         // cheking if can be multiples types (a array of types)
         const valPropSchema = schema[property];
         const getTypeValSchema = getType(valPropSchema); // getting the type from the value not from the property 'type'
+        console.log('getTypeValSchema: ', getTypeValSchema);
 
         switch (getTypeValSchema) {
           case 'string': // dont exists 'required', obiusly.
+            console.log('es string');
             // can be: 'string', 'number', 'boolean' or 'array' but never 'object' (because a object can't be declare of simple way).
             if (valPropSchema === 'object') { // * bad 'schema structure' designed (by back developer).
               retorno = false;
@@ -96,35 +106,58 @@
             }
             break;
 
-          case 'array': // is multi type and can be 'required', obiusly again.
-            console.log('es un array');
-            const typesValid = valPropSchema.filter(function (type) {
-              return type === getTypeValObj;
-            });
-            // no body match with any types items.
-            if (!typesValid.length && valPropObj.required) { // ... just if is required
-              retorno = false;
-              _this.different.push(valPropObj);
-            }
+          case 'array': 
+            console.log('es array');
+            
             break;
           
           case 'object':
-            console.log('es un objeto');
+            console.log('es objecto');
             if (!existsProp(valPropSchema, 'type')) { // * missing important property. If is object, have to exists the 'type' property.
               retorno = false;
             } else {
-              console.log('getTypeValObj ', getTypeValObj);
-              if (getTypeValObj !== 'object' && valPropSchema.required) {
+              if (getTypeValObj === 'object') {
+                if (!existsProp(valPropObj, 'properties')) { // * missing important property. If is object, have to exists the 'properties' property.
+                  if (valPropSchema.required) retorno = false;
+                }
+              } else {
+                if (valPropSchema.required) {
+                  retorno = false;
+                  _this.different.push({
+                    name: property,
+                    current: getTypeValObj,
+                    expected: getTypeValSchema,
+                    value: valPropObj
+                  });
+                }
+              }
+            }
+            break;
+          
+          case 'mixed':
+            console.log('es mixed');
+            const typesList = valPropSchema.type;
+            if (typesList.indexOf('object') !== -1) { // a type 'object' can be declare in 'simple way' nor in a 'multi types' way.
+              retorno = false;
+            } else {
+              const typesValid = typesList.filter(function (type) {
+                return type === getTypeValObj;
+              });
+              // no body match with any types items.
+              if (!typesValid.length && valPropSchema.required) { 
                 retorno = false;
                 _this.different.push({
                   name: property,
                   current: getTypeValObj,
-                  expected: 'object',
+                  expected: typesList,
                   value: valPropObj
                 });
               }
             }
             break;
+
+          default:
+            console.log('es cualquiera otra cosa');
         }
       }
     });

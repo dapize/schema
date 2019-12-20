@@ -69,3 +69,16 @@ const schema = {
     required: true
   }
 };
+
+
+// MULTI TYPES
+
+const schema = {
+  image: ['string', 'boolean']
+};
+// just is accepted: 'string', 'boolean', 'number' or 'array', but never 'object', because a property type 'object' can't be declare with 'simple way' nor in a 'multiple types'.
+
+const schema = {
+  image: ['string', 'object'] // WRONG WAY!!!
+};
+
