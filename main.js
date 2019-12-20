@@ -1,19 +1,20 @@
-const response3 = {
+const response = {
 
   "image": "images/icons/icon-fraude.png 1x",
-
+  "alt": 'sin ningùn alt :V',
   "preTitle": {
-    "text": "más rápida y cómoda",
-    "classes": "lh-color-light-blue"
-  }
+    "text": "más rápida y cómoda"
+  },
+  "clientes": ["daniel", "giacomo", "diego"]
 };
 
-const schema3 = {
+const schema = {
 
-  image: {
-    type: 'string'
+  image: 'string',
+  alt: {
+    type: 'string',
+    default: 'un alsito XD'
   },
-
   preTitle: {
     type: 'object',
     properties: {
@@ -27,11 +28,31 @@ const schema3 = {
         default: 'div'
       }
     }
+  },
+  title: {
+    type: 'object',
+    properties: {
+      text: {
+        type: 'string',
+        required: true
+      },
+      classes: {
+        type: 'string',
+        default: 'lh-typo lh-typo__sectitle lh-typo__sectitle--2'
+      },
+      tag: {
+        type: 'string',
+        default: 'div'
+      }
+    },
+    required: true
+  },
+  clientes: {
+    type: 'array'
   }
 }
 
-
-const response = {
+const response2 = {
   "image": {
     "srcset": "images/icons/icon-fraude.png 1x, images/icons/icon-fraude@2x.png 2x"
   },
@@ -48,7 +69,7 @@ const response = {
   }
 };
 
-const schema = {
+const schema2 = {
 
   image: {
     type: 'object',
@@ -110,11 +131,17 @@ const schema = {
 const headerSchema = new Schema(schema);
 const isValid = headerSchema.validate(response);
 
+
 console.log('\n\n');
 console.log('isValid: ', isValid);
 console.dir('different: ', headerSchema.different);
 console.dir('missings: ', headerSchema.missings);
 console.dir('errors: ', headerSchema.errors);
+
+
+console.log('\n\n\nCompilation...');
+const compile = headerSchema.compile();
+console.log(compile);
 /*
 const modHeader = {
   "badge": "string"

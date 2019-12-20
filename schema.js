@@ -21,6 +21,11 @@
   };
 
   /**
+   * Lista de tipos de formato de variables
+   */
+  const typesAccepted = ['string', 'number', 'boolean', 'array', 'object'];
+
+  /**
    * Obtiene el tipo del valor pasado.
    * @param {Object|String} value El string y objecto que contiene el valor del objeto
    * @return {String}
@@ -37,7 +42,13 @@
           retorno = 'object';
         }
       } else {
-        retorno = typeof value;
+        const typeOfVal = typeof value;
+        if (typeOfVal === 'string') {
+          retorno = (typesAccepted.indexOf(value) === -1) ? typeOfVal : value;
+        } else {
+          retorno = typeOfVal
+        }
+
       }
     }
     return retorno;
@@ -71,18 +82,24 @@
    * @param {String} parentProp Nombre de la propiedad padre de los registros
    * @returns {Object}
    */
-  const mergeRegisters = function (objTarget, schema, parentProp) {
+  const mergeProps = function (objTarget, schema, parentProp) {
+    // MISSINGS AND ERRORS
     let itemReg;
     ['missings', 'errors'].forEach(function (nameReg) {
       itemReg = schema[nameReg];
       if (itemReg.length) objTarget[nameReg] = objTarget[nameReg].concat(itemReg);
     });
-    const schemaDifferent = schema.different;
-    if (Object.keys(schemaDifferent).length) {
-      if (!objTarget.different.hasOwnProperty(parentProp)) objTarget.different[parentProp] = {};
-      objTarget.different[parentProp] = schemaDifferent;
-    }
+    // DIFFERENT AND COMPILED
+    let currentSchema;
+    ['different', 'compiled'].forEach(function (objName) {
+      currentSchema = schema[objName];
+      if (Object.keys(currentSchema).length) {
+        if (!objTarget[objName].hasOwnProperty(parentProp)) objTarget[objName][parentProp] = {};
+        objTarget[objName][parentProp] = currentSchema;
+      };
+    });
   };
+
 
   
   // CONSTRUCTOR
@@ -91,6 +108,7 @@
     this.missings = [];
     this.different = {};
     this.errors = [];
+    this.compiled = {};
   };
 
   // PROTO
@@ -125,19 +143,23 @@
                   expected: 'string',
                   value: valPropObj
                 });
+              } else {
+                reg(_this.compiled, property, valPropObj)
               }
             }
             break;
 
           case 'array':
-            if (valPropSchema !== getTypeValObj) {
+            if (getTypeValSchema !== getTypeValObj) {
               if (valPropSchema.required) retorno = false;
               reg(_this.different, property, {
                 current: getTypeValObj,
                 expected: 'array',
                 value: valPropObj
               });
-            };
+            } else {
+              reg(_this.compiled, property, valPropObj)
+            }
             break;
           
           case 'object':
@@ -152,7 +174,7 @@
                 } else {
                   const propertiesSchema = new Schema(valPropSchema.properties);
                   if (!propertiesSchema.validate(valPropObj)) retorno = false;
-                  mergeRegisters(_this, propertiesSchema, property);
+                  mergeProps(_this, propertiesSchema, property);
                 }
               } else {
                 if (valPropSchema.required) {
@@ -194,6 +216,7 @@
       } else {
         reg(_this.missings, null, 'Dont exist the variable "' + property + '" in the object');
         if (valPropSchema.required) retorno = false;
+        if (valPropSchema.default) _this.compiled[property] = valPropSchema.default;
       }
     });
 
@@ -201,10 +224,11 @@
     return retorno;
   };
 
-  proto.extend = function () {
+  proto.compile = function () {
+    return this.compiled;
   };
 
-  proto.compile = function () {
+  proto.extend = function () {
   };
 
   // EXPORTING
