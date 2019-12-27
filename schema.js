@@ -53,7 +53,7 @@
    * @param {Object} data Objeto que contendrá información de la propiedad faltante.
    * @returns {Boolean} Registro exitoso: true. Intento de registro duplicado: false
    */
-  const reg = function (target, propName, data, self) {
+  const reg = function (target, propName, data) {
     let retorno = false;
     if (Array.isArray(target)) {
       target.push(data);
@@ -75,12 +75,17 @@
    * @returns {Object}
    */
   const mergeProps = function (objTarget, schema, parentProp) {
-    // MISSINGS AND ERRORS
-    let itemReg;
-    ['missings', 'errors'].forEach(function (nameReg) {
-      itemReg = schema[nameReg];
-      if (itemReg.length) objTarget[nameReg] = objTarget[nameReg].concat(itemReg);
+    // ERRORS
+    const itemReg = schema.errors;
+    if (itemReg.length) objTarget.errors = objTarget.errors.concat(itemReg);
+    
+    // MISSINGS
+    let missing;
+    ['required', 'optional'].forEach(function (item) {
+      missing = schema.missings[item];
+      if (missing.length) objTarget.missings[item] = objTarget.missings[item].concat(missing);
     });
+    
     // DIFFERENT AND COMPILED
     let currentSchema;
     ['different', 'compiled'].forEach(function (objName) {
@@ -127,30 +132,20 @@
 
         switch (getTypeValSchema) {          
           case 'string': // dont exists 'required', obiusly.
-            // can be: 'string', 'number', 'boolean' or 'array' but never 'object' (because a object can't be declare of simple way).
-            if (valPropSchema === 'object') { // * bad 'schema structure' builded (by frontEnd developer).
-              reg(_this.errors, null, 'Is not possible set the type "object" in "simple way".')
-              retorno = false;
-              console.log('false 1');
+            if (getTypeValObj !== 'string') {
+              reg(_this.different, property, {
+                current: getTypeValObj,
+                expected: 'string',
+                value: valPropObj
+              });
             } else {
-              if (getTypeValObj !== 'string') {
-                reg(_this.different, property, {
-                  current: getTypeValObj,
-                  expected: 'string',
-                  value: valPropObj
-                });
-              } else {
-                reg(_this.compiled, property, valPropObj)
-              }
+              reg(_this.compiled, property, valPropObj)
             }
             break;
 
           case 'array':
             if (getTypeValSchema !== getTypeValObj) {
-              if (valPropSchema.required) {
-                retorno = false;
-                console.log('false 2');
-              }
+              if (valPropSchema.required) retorno = false;
               reg(_this.different, property, {
                 current: getTypeValObj,
                 expected: 'array',
@@ -162,74 +157,56 @@
             break;
           
           case 'object':
-            if (!valPropSchema.hasOwnProperty('type')) { // * missing important property. If is object, have to exists the 'type' property. Error of frontEnd developer.
-              reg(_this.errors, null, 'Is the value of a property is a object have to create the property "type".')
-              retorno = false;
-              console.log('false 3');
-            } else {
-              if (getTypeValObj === 'object') {
-                if (!valPropSchema.hasOwnProperty('properties')) { // * missing important property. If is object, have to exists the 'properties' property.
-                  reg(_this.errors, null, 'Dont exists the property "properties" in the object.');
-                  if (valPropSchema.required) {
-                    retorno = false;
-                    console.log('false 4');
-                  }
-                } else {
-                  const propertiesSchema = new Schema(valPropSchema.properties);
-                  if (!propertiesSchema.validate(valPropObj)) {
-                    retorno = false;
-                    console.log('false 5: ' + property);
-                  }
-                  mergeProps(_this, propertiesSchema, property);
-                }
+            if (getTypeValObj === 'object') {
+              if (valPropSchema.hasOwnProperty('properties')) {
+                const propertiesSchema = new Schema(valPropSchema.properties);
+                if (!propertiesSchema.validate(valPropObj)) retorno = false;
+                mergeProps(_this, propertiesSchema, property);
               } else {
-                if (valPropSchema.required) {
-                  retorno = false;
-                  console.log('false 6');
-                  reg(_this.different, property,{
-                    current: getTypeValObj,
-                    expected: getTypeValSchema,
-                    value: valPropObj
-                  });
-                }
+                reg(_this.compiled, property, valPropObj);
+              }
+            } else {
+              if (valPropSchema.required) {
+                retorno = false;
+                reg(_this.different, property,{
+                  current: getTypeValObj,
+                  expected: getTypeValSchema,
+                  value: valPropObj
+                });
               }
             }
             break;
           
           case 'mixed':
             const typesList = valPropSchema.type;
-            if (typesList.indexOf('object') !== -1) { // a type 'object' can be declare in 'simple way' nor in a 'multi types' way.
-              reg(_this.errors, null, 'Is not possible set the type "object" in a property of mixed types.');
+            const typesValid = typesList.filter(function (type) {
+              return type === getTypeValObj;
+            });
+            // no body match with any types items.
+            if (!typesValid.length && valPropSchema.required) { 
               retorno = false;
-              console.log('false 7');
-            } else {
-              const typesValid = typesList.filter(function (type) {
-                return type === getTypeValObj;
+              reg(_this.different, property, {
+                current: getTypeValObj,
+                expected: typesList,
+                value: valPropObj
               });
-              // no body match with any types items.
-              if (!typesValid.length && valPropSchema.required) { 
-                retorno = false;
-                console.log('false 8');
-                reg(_this.different, property, {
-                  current: getTypeValObj,
-                  expected: typesList,
-                  value: valPropObj
-                });
-              }
+            } else {
+              reg(_this.compiled, property, valPropObj)
             }
             break;
 
           default:
-            console.log('es cualquiera otra cosa');
+            console.log('format type dont accepted: ' + getTypeValSchema);
         }
       } else {
+        let missing;
         if (valPropSchema.required) {
           retorno = false;
-          reg(_this.missings.required, null, property);
+          missing = 'required';
         } else {
-          reg(_this.missings.optional, null, property);
+          missing = 'optional';
         }
-        console.log('suerte: ', _this);
+        reg(_this.missings[missing], null, property);
         if (valPropSchema.default) _this.compiled[property] = valPropSchema.default;
       }
     });
@@ -239,7 +216,7 @@
   };
 
   proto.compile = function () {
-    return this.compiled;
+    return this.missings.required.length ? false : this.compiled;
   };
 
   proto.extend = function () {
