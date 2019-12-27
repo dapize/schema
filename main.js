@@ -1,128 +1,88 @@
-const response = {
-
-  "image": "images/icons/icon-fraude.png 1x",
-  "alt": 'sin ningùn alt :V',
-  "preTitle": {
-    "text": "más rápida y cómoda"
-  },
-  "clientes": ["daniel", "giacomo", "diego"]
-};
-
 const schema = {
-
-  image: 'string',
-  alt: {
-    type: 'string',
-    default: 'un alsito XD'
-  },
-  preTitle: {
+  'lh-section': {
     type: 'object',
     properties: {
-      text: 'string',
-      classes: {
-        type: 'string',
-        default: 'lh-color-light-blue'
-      },
-      tag: {
-        type: 'string',
-        default: 'div'
-      }
-    }
-  },
-  title: {
-    type: 'object',
-    properties: {
-      text: {
-        type: 'string',
+      'lh-container': {
+        type: 'object',
+        properties: {
+          'lh-section__header': {
+            type: 'object',
+            properties: {
+              image: {
+                type: 'object',
+                properties: {
+                  srcset: 'string'
+                }
+              },
+              preTitle: {
+                type: 'object',
+                properties: {
+                  text: 'string',
+                  classes: {
+                    type: 'string',
+                    default: 'lh-color-light-blue'
+                  }
+                }
+              },
+              title: {
+                type: 'object',
+                properties: {
+                  text: {
+                    type: 'string',
+                    required: true
+                  },
+                  classes: {
+                    type: 'string',
+                    default: 'lh-typo lh-typo__sectitle lh-typo__sectitle--2'
+                  }
+                },
+                required: true
+              },
+              description: {
+                type: 'object',
+                properties: {
+                  text: 'string',
+                  classes: {
+                    type: 'string',
+                    default: 'lh-typo lh-typo__p2'
+                  }
+                }
+              }
+            },
+            required: true
+          }
+        },
         required: true
-      },
-      classes: {
-        type: 'string',
-        default: 'lh-typo lh-typo__sectitle lh-typo__sectitle--2'
-      },
-      tag: {
-        type: 'string',
-        default: 'div'
       }
     },
     required: true
-  },
-  clientes: {
-    type: 'array'
-  }
-}
-
-const response2 = {
-  "image": {
-    "srcset": "images/icons/icon-fraude.png 1x, images/icons/icon-fraude@2x.png 2x"
-  },
-  "preTitle": {
-    "text": "más rápida y cómoda",
-    "classes": "lh-color-light-blue"
-  },
-  "title": {
-    "text": "Descubre tu nueva herramienta de trabajo",
-    "classes": "lh-typo__sectitle lh-typo__sectitle--2"
-  },
-  "description": {
-    "text": "Nosotros nunca te pediremos tus contraseñas, fecha de cumpleaños, lugar de nacimiento, nombre de familiares ni demás datos personales."
   }
 };
 
-const schema2 = {
-
-  image: {
-    type: 'object',
-    properties: {
-      srcset: 'string'
-    }
-  },
-
-  preTitle: {
-    type: 'object',
-    properties: {
-      text: 'string',
-      classes: {
-        type: 'string',
-        default: 'lh-color-light-blue'
-      },
-      tag: {
-        type: 'string',
-        default: 'div'
-      }
-    }
-  },
-
-  title: {
-    type: 'object',
-    properties: {
-      text: {
-        type: 'string',
-        required: true
-      },
-      classes: {
-        type: 'string',
-        default: 'lh-typo lh-typo__sectitle lh-typo__sectitle--2'
-      },
-      tag: {
-        type: 'string',
-        default: 'div'
-      }
-    },
-    required: true
-  },
-
-  description: {
-    type: 'object',
-    properties: {
-      text: 'string',
-      classes: {
-        type: 'string',
-        default: 'lh-typo lh-typo__p2'
-      },
-      tag: {
-        type: 'string',
-        default: 'div'
+const response = {
+  "lh-section":{
+    "content":{
+      "lh-container":{
+        "content":{
+          "lh-section__header":{
+            "content":{
+              "image":{
+                "srcset":"images/icons/icon-fraude.png 1x, images/icons/icon-fraude@2x.png 2x"
+              },
+              "preTitle":{
+                "text":"más rápida y cómoda",
+                "classes":"lh-color-light-blue"
+              },
+              "title":{
+                "text":"Descubre tu nueva herramienta de trabajo",
+                "classes":"lh-typo__sectitle lh-typo__sectitle--2"
+              },
+              "description":{
+                "text":"Nosotros nunca te pediremos tus contraseñas, fecha de cumpleaños, lugar de nacimiento, nombre de familiares ni demás datos personales."
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -130,18 +90,21 @@ const schema2 = {
 
 const headerSchema = new Schema(schema);
 const isValid = headerSchema.validate(response);
-
-
+console.log('Instancia: ', headerSchema);
+/*
+console.log(headerSchema);
 console.log('\n\n');
 console.log('isValid: ', isValid);
 console.dir('different: ', headerSchema.different);
-console.dir('missings: ', headerSchema.missings);
+console.log('missings required: ', headerSchema.missings.required);
+console.log('missings optional: ', headerSchema.missings.optional);
 console.dir('errors: ', headerSchema.errors);
 
 
 console.log('\n\n\nCompilation...');
 const compile = headerSchema.compile();
 console.log(compile);
+*/
 /*
 const modHeader = {
   "badge": "string"
