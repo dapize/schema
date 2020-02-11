@@ -66,6 +66,9 @@ console.log(myTitle.missings.optional);
 console.log(myTitle.errors);
 ```
 
+### TODO
+- extend : Sirve para extender un schema previamente definido.
+
 ---
 
 Por el momento es todo lo que trae, más adelante agregaré más caracteristicas, como más métodos y eventos.
