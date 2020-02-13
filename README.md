@@ -14,11 +14,6 @@ const myObj = {
 const myTitle = new Schema(myObj);
 ```
 
-## Navegadores compatibles
-
-IE11+, Chrome, Firefox, Safari, Opera
-
-
 ### Métodos disponibles
 - validate(Object) : Sirve para validar el esquema con un objeto pasado.
 
@@ -65,6 +60,10 @@ console.log(myTitle.missings.required);
 console.log(myTitle.missings.optional);
 console.log(myTitle.errors);
 ```
+
+## Navegadores compatibles
+
+IE11+, Chrome, Firefox, Safari, Opera
 
 ### TODO
 - extend : Sirve para extender un schema previamente definido.
