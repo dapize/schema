@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { src, dest, series } = require('gulp');
 const concat = require('gulp-concat');
 const rename = require('gulp-rename');
