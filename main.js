@@ -1,4 +1,4 @@
-const response2 = {
+const response = {
   "content": {
     "image": {
       "srcset": "images/icons/icon-fraude.png 1x, images/icons/icon-fraude@2x.png 2x"
@@ -18,7 +18,7 @@ const response2 = {
   }
 };
 
-const schema2 = {
+const schema = {
   content: {
     type: 'object',
     required: true,
@@ -79,20 +79,6 @@ const schema2 = {
   }
 };
 
-const response = {
-  cantidad: 3,
-  guardados: true,
-  lista: ['teclado', 'mouse', 'celular']
-};
-
-const schema = {
-  cantidad: {
-    type: 'number',
-    required: true
-  },
-  guardados: 'boolean',
-  lista: 'array'
-}
 
 const card = new Schema(schema);
 const isValid = card.validate(response);

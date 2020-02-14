@@ -1,9 +1,10 @@
+<!-- start:source.tmpl.hbs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-		<title>Globals</title>
+		<title>utils.js</title>
 		<!--[if lt IE 9]>
 		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -13,7 +14,7 @@
 		<link type="text/css" rel="stylesheet" href="css/template.min.css">
 		<script type="text/javascript">
 			window.TEMPLATE_OPTIONS = {"includeDate":true,"dateFormat":"Do MMM YYYY","systemName":"FooDoc","systemSummary":"A Bootstrap and Handlebars based template for JSDoc3.","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Classes","summary":"All documented classes."},{"kind":"external","title":"Externals","summary":"All documented external members."},{"kind":"global","title":"Globals","summary":"All documented globals."},{"kind":"mixin","title":"Mixins","summary":"All documented mixins."},{"kind":"interface","title":"Interfaces","summary":"All documented interfaces."},{"kind":"module","title":"Modules","summary":"All documented modules."},{"kind":"namespace","title":"Namespaces","summary":"All documented namespaces."},{"kind":"tutorial","title":"Tutorials","summary":"All available tutorials."}],"footer":"","copyright":"FooDoc Copyright © 2016 The contributors to the JSDoc3 and FooDoc projects.","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false};
-			window.DOCLET_TOC_ENABLED = true;
+			window.DOCLET_TOC_ENABLED = false;
 			window.DOCLET_AFILTER_ENABLED = false;
 		</script>
 </head>
@@ -64,25 +65,138 @@
 	</header>
 	<!-- end:navbar.hbs -->		<div class="page-header">
 			<div class="container">
-				<span class="kind">global</span>
-				<h1><span class="name">Globals</span></h1>
-				<div class="summary"><p>All documented globals.</p></div>			</div>
+				<span class="kind">source</span>
+				<h1><span class="name">utils.js</span></h1>
+			</div>
 		</div>
 	<div class="container content">
 		<div class="row">
-			<div class="col-md-9 main-content">
-						<ol class="breadcrumb">
-							<li><a href="index.html">Home</a></li>
-							<li class="active">Globals</li>
-						</ol>
-					<section>
-							<article class="secondary">
-							</article>
-					</section>
+			<div class="col-md-12 main-content">
+		<section class="source-section">
+			<article></article>
+			<pre class="prettyprint source language-javascript line-numbers"><code class="language-javascript">/**
+ * Utilidades varias
+ * @namespace uSchema
+ * @property {Array} typesAccepted Lista de tipos aceptados para ser procesados.
+ */
+const uSchema = {
+
+  /**
+   * Verifica si lo pasado es un objeto literal o no
+   * @memberof uSchema
+   * @param {Object} obj Objeto a ser verificado
+   * @returns {Boolean}
+   * @example
+   * uSchema.objLiteral({});
+   * => true
+   * @example
+   * uSchema.objLiteral('obj');
+   * => false
+   */
+  objLiteral: function (obj) {
+    return Object.prototype.toString.call(obj).toLowerCase() === '[object object]'
+  },
+
+  typesAccepted: ['string', 'number', 'boolean', 'array', 'object'],
+
+  /**
+   * Devuelve el tipo de dato de una propiedad en un ojeto
+   * @memberof uSchema
+   * @namespace getType
+   */
+  getType: {
+    /**
+     * Devuelve el tipo de dato de una propiedad de un objeto comun y corriente.
+     * @memberof uSchema.getType
+     * @param {*} value Valor de la propiedad del objeto a obtener su tipo.
+     * @returns {String} 'string', 'number', 'boolean', 'array' u 'object
+     */
+    obj: function (value) {
+      return Array.isArray(value) ? 'array' : typeof value;
+    },
+
+    /**
+     * Devuelve el tipo de dato de una propiedad de un objeto schema.
+     * @memberof uSchema.getType
+     * @param {*} value Valor de la propiedad del objeto a obtener su tipo.
+     * @returns {String} 'string', 'number', 'boolean', 'array' u 'object
+     */
+    schema: function (value) {
+      let retorno;
+      if (Array.isArray(value)) {
+        retorno = 'mixed';
+      } else {
+        if (uSchema.objLiteral(value)) {
+          retorno = value.hasOwnProperty('type') ? value.type : 'object';
+        } else {
+          const typeOfVal = typeof value;
+          if (typeOfVal === 'string') {
+            retorno = (uSchema.typesAccepted.indexOf(value) !== -1) ? value : typeOfVal;
+          } else {
+            retorno = typeOfVal
+          }
+        }
+      }
+      return retorno;
+    }
+  },
+
+  /**
+   * Registra incidentes dentro de un objeto, para que sirva de log o para el compilado.
+   * @memberof uSchema
+   * @param {Array|Object} target Lista y objeto destino.
+   * @param {Object|String} data Objeto que contendrá información de la propiedad faltante o tambien el string que será agregado al array.
+   * @param {String=} propName Nombre de la propiedad a crear dentro del objeto.
+   * @returns {Boolean} Registro exitoso: true. Intento de registro duplicado: false
+   */
+  reg: function (target, data, propName) {
+    let retorno = false;
+    if (propName) { // if exists this argument the target is a 'object'...
+      if (!target.hasOwnProperty(propName)) {
+        target[propName] = data;
+        retorno = true;
+      }
+    } else { // ... is not is a 'array'
+      target.push(data);
+      retorno = true;
+    }
+    return retorno;
+  },
+
+  /**
+   * Realiza un merge de los registros obtenidos por el tratado de un subschema.
+   * @memberof uSchema
+   * @param {Object} target Objeto destino en donde se realizará el merge de las propiedades.
+   * @param {Object} schema Objeto que contiene los registros (missings, errors, different)
+   * @param {String} parentProp Nombre de la propiedad padre de los registros
+   * @returns {Object}
+   */
+  mergeProps: function (target, schema, parentProp) {
+    // ERRORS
+    const itemReg = schema.errors;
+    if (itemReg.length) target.errors = target.errors.concat(itemReg);
+    
+    // MISSINGS
+    let missing;
+    ['required', 'optional'].forEach(function (item) {
+      missing = schema.missings[item];
+      if (missing.length) target.missings[item] = target.missings[item].concat(missing);
+    });
+    
+    // DIFFERENT AND COMPILED
+    let currentSchema;
+    ['different', 'compiled'].forEach(function (objName) {
+      currentSchema = schema[objName];
+      if (Object.keys(currentSchema).length) {
+        if (!target[objName].hasOwnProperty(parentProp)) target[objName][parentProp] = {};
+        target[objName][parentProp] = currentSchema;
+      };
+    });
+  }
+
+};</code></pre>
+		</section>
 			</div>
-				<div class="col-md-3 side-content">
-					<nav class="toc hidden-print hidden-sm hidden-xs"></nav>
-				</div>
 		</div>
 	</div>
 	<footer>
@@ -114,3 +228,4 @@
 	
 </body>
 </html>
+<!-- end:source.tmpl.hbs -->

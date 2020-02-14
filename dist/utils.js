@@ -1,6 +1,6 @@
 (function (root) {
 'use strict';
-  /**
+/**
  * Utilidades varias
  * @namespace uSchema
  * @property {Array} typesAccepted Lista de tipos aceptados para ser procesados.
@@ -121,144 +121,15 @@ const uSchema = {
   }
 
 };
-/**
- * Constructor del schema.
- * @constructor
- * @param {Object} obj Configuraciones iniciales del schema
- * @example
- * const mySchema = {
- *  name: 'string',
- *  age: 'number',
- *  email: {
- *    type: 'string',
- *    required: true
- *  }
- * }
- * const card = new Schema(schema);
- */
-function Schema (obj) {
-  this.schema = Object.assign({}, obj);
-  this.missings = {
-    required: [],
-    optional: []
-  };
-  this.different = {};
-  this.errors = [];
-  this.compiled = {};
-};
-/**
- * Fusiona el objeto pasado con el schema creado
- * @param {Object} [obj] Objeto que se necesita compilar con el squema creado.
- * @returns {Object} El objeto fusionado con los valores por defecto en el esquema (si es que existen claro).
- */
-Schema.prototype.compile = function (obj) {
-  if (obj) this.validate(obj);
-  return this.missings.required.length ? false : this.compiled;
-};
-/**
- * Valida si un objeto cumple con el schema designado.
- * @param {Object} response Objeto que comunmente se obtiene de un 'response' en una solicitud ajax
- * @returns {Boolean} Indica si el objeto pasado es válido o no con el schema.
- */
-Schema.prototype.validate = function (response) {
-  const schema = this.schema,
-        _this = this;
-  let retorno = true; // by default, is valid :)
-
-  Object.keys(schema).forEach(function (property) {
-    // Data form schema
-    const valPropSchema = schema[property];
-    const getTypeValSchema = uSchema.getType.schema(valPropSchema);
-
-    if (response.hasOwnProperty(property)) {
-      // Data from response
-      const valPropObj = response[property];
-      const getTypeValObj = uSchema.getType.obj(valPropObj);
-
-      switch (getTypeValSchema) {
-        case 'string':
-        case 'number':
-        case 'boolean':
-        case 'array':
-          if (getTypeValSchema !== getTypeValObj) {
-            if (valPropSchema.required) retorno = false;
-            uSchema.reg(_this.different, {
-              current: getTypeValObj,
-              expected: getTypeValSchema,
-              value: valPropObj
-            }, property);
-          } else {
-            uSchema.reg(_this.compiled, valPropObj, property)
-          }
-          break;
-        
-        case 'object':
-          if (getTypeValObj === 'object') {
-            if (valPropSchema.hasOwnProperty('properties')) {
-              const propertiesSchema = new Schema(valPropSchema.properties);
-              if (!propertiesSchema.validate(valPropObj)) retorno = false;
-              uSchema.mergeProps(_this, propertiesSchema, property);
-            } else {
-              uSchema.reg(_this.compiled, valPropObj, property);
-            }
-          } else {
-            if (valPropSchema.required) {
-              retorno = false;
-              uSchema.reg(_this.different, {
-                current: getTypeValObj,
-                expected: getTypeValSchema,
-                value: valPropObj
-              }, property);
-            }
-          }
-          break;
-        
-        case 'mixed':
-          const typesValid = valPropSchema.filter(function (type) {
-            return type === getTypeValObj;
-          });
-          // no body match with any types items.
-          if (!typesValid.length && valPropSchema.required) { 
-            retorno = false;
-            uSchema.reg(_this.different, {
-              current: getTypeValObj,
-              expected: valPropSchema,
-              value: valPropObj
-            }, property);
-          } else {
-            uSchema.reg(_this.compiled, valPropObj, property)
-          }
-          break;
-
-        default:
-          console.log('format type dont accepted: ' + getTypeValSchema);
-          retorno = false;
-      }
-    } else {
-      let missing;
-      if (valPropSchema.required) {
-        retorno = false;
-        missing = 'required';
-      } else {
-        missing = 'optional';
-      }
-      uSchema.reg(_this.missings[missing], property);
-      if (valPropSchema.default) _this.compiled[property] = valPropSchema.default;
-    }
-  });
-
-  // Returning
-  return retorno;
-};
 
   // EXPORTING
   if (typeof exports !== 'undefined') {
     if (typeof module !== 'undefined' && module.exports) {
-      module.exports = Schema;
+      module.exports = uSchema;
     }
-    exports.Schema = Schema;
+    exports.uSchema = uSchema;
   } else {
-    root.Schema = Schema;
+    root.uSchema = uSchema;
   }
 }(this));
-//# sourceMappingURL=schema.js.map
+//# sourceMappingURL=utils.js.map

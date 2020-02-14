@@ -1,93 +1,121 @@
 /**
- * Verifica si el objeto pasado es un objeto literal.
- * @param {Object} obj Objeto a verificar
- * @returns {Boolean}
+ * Utilidades varias
+ * @namespace uSchema
+ * @property {Array} typesAccepted Lista de tipos aceptados para ser procesados.
  */
-const objLiteral = function (obj) {
-  return Object.prototype.toString.call(obj).toLowerCase() === '[object object]'
-};
+const uSchema = {
 
-/**
- * Lista de tipos de formato de variables
- */
-const typesAccepted = ['string', 'number', 'boolean', 'array', 'object'];
+  /**
+   * Verifica si lo pasado es un objeto literal o no
+   * @memberof uSchema
+   * @param {Object} obj Objeto a ser verificado
+   * @returns {Boolean}
+   * @example
+   * uSchema.objLiteral({});
+   * => true
+   * @example
+   * uSchema.objLiteral('obj');
+   * => false
+   */
+  objLiteral: function (obj) {
+    return Object.prototype.toString.call(obj).toLowerCase() === '[object object]'
+  },
 
-/**
- * Obtiene el tipo del valor pasado.
- * @param {Object|String} value El string y objecto que contiene el valor del objeto
- * @return {String}
- */
-const getType = function (value) {
-  let retorno;
-  if (Array.isArray(value)) {
-    retorno = 'array';
-  } else {
-    if (objLiteral(value)) {
-      if (value.hasOwnProperty('type')) {
-        retorno = Array.isArray(value.type) ? 'mixed' : value.type
+  typesAccepted: ['string', 'number', 'boolean', 'array', 'object'],
+
+  /**
+   * Devuelve el tipo de dato de una propiedad en un ojeto
+   * @memberof uSchema
+   * @namespace getType
+   */
+  getType: {
+    /**
+     * Devuelve el tipo de dato de una propiedad de un objeto comun y corriente.
+     * @memberof uSchema.getType
+     * @param {*} value Valor de la propiedad del objeto a obtener su tipo.
+     * @returns {String} 'string', 'number', 'boolean', 'array' u 'object
+     */
+    obj: function (value) {
+      return Array.isArray(value) ? 'array' : typeof value;
+    },
+
+    /**
+     * Devuelve el tipo de dato de una propiedad de un objeto schema.
+     * @memberof uSchema.getType
+     * @param {*} value Valor de la propiedad del objeto a obtener su tipo.
+     * @returns {String} 'string', 'number', 'boolean', 'array' u 'object
+     */
+    schema: function (value) {
+      let retorno;
+      if (Array.isArray(value)) {
+        retorno = 'mixed';
       } else {
-        retorno = 'object';
+        if (uSchema.objLiteral(value)) {
+          retorno = value.hasOwnProperty('type') ? value.type : 'object';
+        } else {
+          const typeOfVal = typeof value;
+          if (typeOfVal === 'string') {
+            retorno = (uSchema.typesAccepted.indexOf(value) !== -1) ? value : typeOfVal;
+          } else {
+            retorno = typeOfVal
+          }
+        }
       }
-    } else {
-      const typeOfVal = typeof value;
-      if (typeOfVal === 'string') {
-        retorno = (typesAccepted.indexOf(value) === -1) ? typeOfVal : value;
-      } else {
-        retorno = typeOfVal
-      }
-
+      return retorno;
     }
-  }
-  return retorno;
-};
+  },
 
-/**
- * Registra incidentes dentro de un objeto, para que sirva de log.
- * @param {Array|Object} target Lista y objeto destino.
- * @param {String} propName Nombre de la propiedad a crear dentro del objeto.
- * @param {Object} data Objeto que contendrá información de la propiedad faltante.
- * @returns {Boolean} Registro exitoso: true. Intento de registro duplicado: false
- */
-const reg = function (target, propName, data) {
-  let retorno = false;
-  if (Array.isArray(target)) {
-    target.push(data);
-    retorno = true;
-  } else {
-    if (!target.hasOwnProperty(propName)) {
-      target[propName] = data;
+  /**
+   * Registra incidentes dentro de un objeto, para que sirva de log o para el compilado.
+   * @memberof uSchema
+   * @param {Array|Object} target Lista y objeto destino.
+   * @param {Object|String} data Objeto que contendrá información de la propiedad faltante o tambien el string que será agregado al array.
+   * @param {String=} propName Nombre de la propiedad a crear dentro del objeto.
+   * @returns {Boolean} Registro exitoso: true. Intento de registro duplicado: false
+   */
+  reg: function (target, data, propName) {
+    let retorno = false;
+    if (propName) { // if exists this argument the target is a 'object'...
+      if (!target.hasOwnProperty(propName)) {
+        target[propName] = data;
+        retorno = true;
+      }
+    } else { // ... is not is a 'array'
+      target.push(data);
       retorno = true;
     }
-  }
-  return retorno;
-};
+    return retorno;
+  },
 
-/**
- * Realiza un merge de los registros obtenidos de por el tratado de un subschema.
- * @param {Object} objTarget Objeto destino en donde se realizará el merge de las propiedades.
- * @param {Object} schema Objeto que contiene los registros (missings, errors, different)
- * @param {String} parentProp Nombre de la propiedad padre de los registros
- * @returns {Object}
- */
-const mergeProps = function (objTarget, schema, parentProp) {
-  // ERRORS
-  const itemReg = schema.errors;
-  if (itemReg.length) objTarget.errors = objTarget.errors.concat(itemReg);
-  
-  // MISSINGS
-  let missing;
-  ['required', 'optional'].forEach(function (item) {
-    missing = schema.missings[item];
-    if (missing.length) objTarget.missings[item] = objTarget.missings[item].concat(missing);
-  });
-  
-  // DIFFERENT AND COMPILED
-  let currentSchema;
-  ['different', 'compiled'].forEach(function (objName) {
-    currentSchema = schema[objName];
-    if (Object.keys(currentSchema).length) {
-      if (!objTarget[objName].hasOwnProperty(parentProp)) objTarget[objName][parentProp] = {};
-      objTarget[objName][parentProp] = currentSchema;
-    };
-  });
+  /**
+   * Realiza un merge de los registros obtenidos por el tratado de un subschema.
+   * @memberof uSchema
+   * @param {Object} target Objeto destino en donde se realizará el merge de las propiedades.
+   * @param {Object} schema Objeto que contiene los registros (missings, errors, different)
+   * @param {String} parentProp Nombre de la propiedad padre de los registros
+   * @returns {Object}
+   */
+  mergeProps: function (target, schema, parentProp) {
+    // ERRORS
+    const itemReg = schema.errors;
+    if (itemReg.length) target.errors = target.errors.concat(itemReg);
+    
+    // MISSINGS
+    let missing;
+    ['required', 'optional'].forEach(function (item) {
+      missing = schema.missings[item];
+      if (missing.length) target.missings[item] = target.missings[item].concat(missing);
+    });
+    
+    // DIFFERENT AND COMPILED
+    let currentSchema;
+    ['different', 'compiled'].forEach(function (objName) {
+      currentSchema = schema[objName];
+      if (Object.keys(currentSchema).length) {
+        if (!target[objName].hasOwnProperty(parentProp)) target[objName][parentProp] = {};
+        target[objName][parentProp] = currentSchema;
+      };
+    });
+  }
+
 };
