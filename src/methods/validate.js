@@ -11,36 +11,27 @@ Schema.prototype.validate = function (response) {
   Object.keys(schema).forEach(function (property) {
     // Data form schema
     const valPropSchema = schema[property];
-    const getTypeValSchema = getType(valPropSchema);
+    const getTypeValSchema = uSchema.getType.schema(valPropSchema);
 
     if (response.hasOwnProperty(property)) {
       // Data from response
       const valPropObj = response[property];
-      const getTypeValObj = getType(valPropObj);
+      const getTypeValObj = uSchema.getType.obj(valPropObj);
 
-      switch (getTypeValSchema) {          
-        case 'string': // dont exists 'required', obiusly.
-          if (getTypeValObj !== 'string') {
-            reg(_this.different, property, {
-              current: getTypeValObj,
-              expected: 'string',
-              value: valPropObj
-            });
-          } else {
-            reg(_this.compiled, property, valPropObj)
-          }
-          break;
-
+      switch (getTypeValSchema) {
+        case 'string':
+        case 'number':
+        case 'boolean':
         case 'array':
           if (getTypeValSchema !== getTypeValObj) {
             if (valPropSchema.required) retorno = false;
-            reg(_this.different, property, {
+            uSchema.reg(_this.different, {
               current: getTypeValObj,
-              expected: 'array',
+              expected: getTypeValSchema,
               value: valPropObj
-            });
+            }, property);
           } else {
-            reg(_this.compiled, property, valPropObj)
+            uSchema.reg(_this.compiled, valPropObj, property)
           }
           break;
         
@@ -49,42 +40,42 @@ Schema.prototype.validate = function (response) {
             if (valPropSchema.hasOwnProperty('properties')) {
               const propertiesSchema = new Schema(valPropSchema.properties);
               if (!propertiesSchema.validate(valPropObj)) retorno = false;
-              mergeProps(_this, propertiesSchema, property);
+              uSchema.mergeProps(_this, propertiesSchema, property);
             } else {
-              reg(_this.compiled, property, valPropObj);
+              uSchema.reg(_this.compiled, valPropObj, property);
             }
           } else {
             if (valPropSchema.required) {
               retorno = false;
-              reg(_this.different, property,{
+              uSchema.reg(_this.different, {
                 current: getTypeValObj,
                 expected: getTypeValSchema,
                 value: valPropObj
-              });
+              }, property);
             }
           }
           break;
         
         case 'mixed':
-          const typesList = valPropSchema.type;
-          const typesValid = typesList.filter(function (type) {
+          const typesValid = valPropSchema.filter(function (type) {
             return type === getTypeValObj;
           });
           // no body match with any types items.
           if (!typesValid.length && valPropSchema.required) { 
             retorno = false;
-            reg(_this.different, property, {
+            uSchema.reg(_this.different, {
               current: getTypeValObj,
-              expected: typesList,
+              expected: valPropSchema,
               value: valPropObj
-            });
+            }, property);
           } else {
-            reg(_this.compiled, property, valPropObj)
+            uSchema.reg(_this.compiled, valPropObj, property)
           }
           break;
 
         default:
           console.log('format type dont accepted: ' + getTypeValSchema);
+          retorno = false;
       }
     } else {
       let missing;
@@ -94,7 +85,7 @@ Schema.prototype.validate = function (response) {
       } else {
         missing = 'optional';
       }
-      reg(_this.missings[missing], null, property);
+      uSchema.reg(_this.missings[missing], property);
       if (valPropSchema.default) _this.compiled[property] = valPropSchema.default;
     }
   });

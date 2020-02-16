@@ -1,9 +1,10 @@
+<!-- start:source.tmpl.hbs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-		<title>Globals</title>
+		<title>methods/validate.js</title>
 		<!--[if lt IE 9]>
 		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -13,7 +14,7 @@
 		<link type="text/css" rel="stylesheet" href="css/template.min.css">
 		<script type="text/javascript">
 			window.TEMPLATE_OPTIONS = {"includeDate":true,"dateFormat":"Do MMM YYYY","systemName":"FooDoc","systemSummary":"A Bootstrap and Handlebars based template for JSDoc3.","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Classes","summary":"All documented classes."},{"kind":"external","title":"Externals","summary":"All documented external members."},{"kind":"global","title":"Globals","summary":"All documented globals."},{"kind":"mixin","title":"Mixins","summary":"All documented mixins."},{"kind":"interface","title":"Interfaces","summary":"All documented interfaces."},{"kind":"module","title":"Modules","summary":"All documented modules."},{"kind":"namespace","title":"Namespaces","summary":"All documented namespaces."},{"kind":"tutorial","title":"Tutorials","summary":"All available tutorials."}],"footer":"","copyright":"FooDoc Copyright © 2016 The contributors to the JSDoc3 and FooDoc projects.","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false};
-			window.DOCLET_TOC_ENABLED = true;
+			window.DOCLET_TOC_ENABLED = false;
 			window.DOCLET_AFILTER_ENABLED = false;
 		</script>
 </head>
@@ -64,25 +65,112 @@
 	</header>
 	<!-- end:navbar.hbs -->		<div class="page-header">
 			<div class="container">
-				<span class="kind">global</span>
-				<h1><span class="name">Globals</span></h1>
-				<div class="summary"><p>All documented globals.</p></div>			</div>
+				<span class="kind">source</span>
+				<h1><span class="name">methods/validate.js</span></h1>
+			</div>
 		</div>
 	<div class="container content">
 		<div class="row">
-			<div class="col-md-9 main-content">
-						<ol class="breadcrumb">
-							<li><a href="index.html">Home</a></li>
-							<li class="active">Globals</li>
-						</ol>
-					<section>
-							<article class="secondary">
-							</article>
-					</section>
+			<div class="col-md-12 main-content">
+		<section class="source-section">
+			<article></article>
+			<pre class="prettyprint source language-javascript line-numbers"><code class="language-javascript">/**
+ * Valida si un objeto cumple con el schema designado.
+ * @param {Object} response Objeto que comunmente se obtiene de un 'response' en una solicitud ajax
+ * @returns {Boolean} Indica si el objeto pasado es válido o no con el schema.
+ */
+Schema.prototype.validate = function (response) {
+  const schema = this.schema,
+        _this = this;
+  let retorno = true; // by default, is valid :)
+
+  Object.keys(schema).forEach(function (property) {
+    // Data form schema
+    const valPropSchema = schema[property];
+    const getTypeValSchema = uSchema.getType.schema(valPropSchema);
+
+    if (response.hasOwnProperty(property)) {
+      // Data from response
+      const valPropObj = response[property];
+      const getTypeValObj = uSchema.getType.obj(valPropObj);
+
+      switch (getTypeValSchema) {
+        case 'string':
+        case 'number':
+        case 'boolean':
+        case 'array':
+          if (getTypeValSchema !== getTypeValObj) {
+            if (valPropSchema.required) retorno = false;
+            uSchema.reg(_this.different, {
+              current: getTypeValObj,
+              expected: getTypeValSchema,
+              value: valPropObj
+            }, property);
+          } else {
+            uSchema.reg(_this.compiled, valPropObj, property)
+          }
+          break;
+        
+        case 'object':
+          if (getTypeValObj === 'object') {
+            if (valPropSchema.hasOwnProperty('properties')) {
+              const propertiesSchema = new Schema(valPropSchema.properties);
+              if (!propertiesSchema.validate(valPropObj)) retorno = false;
+              uSchema.mergeProps(_this, propertiesSchema, property);
+            } else {
+              uSchema.reg(_this.compiled, valPropObj, property);
+            }
+          } else {
+            if (valPropSchema.required) {
+              retorno = false;
+              uSchema.reg(_this.different, {
+                current: getTypeValObj,
+                expected: getTypeValSchema,
+                value: valPropObj
+              }, property);
+            }
+          }
+          break;
+        
+        case 'mixed':
+          const typesValid = valPropSchema.filter(function (type) {
+            return type === getTypeValObj;
+          });
+          // no body match with any types items.
+          if (!typesValid.length &amp;&amp; valPropSchema.required) { 
+            retorno = false;
+            uSchema.reg(_this.different, {
+              current: getTypeValObj,
+              expected: valPropSchema,
+              value: valPropObj
+            }, property);
+          } else {
+            uSchema.reg(_this.compiled, valPropObj, property)
+          }
+          break;
+
+        default:
+          console.log('format type dont accepted: ' + getTypeValSchema);
+          retorno = false;
+      }
+    } else {
+      let missing;
+      if (valPropSchema.required) {
+        retorno = false;
+        missing = 'required';
+      } else {
+        missing = 'optional';
+      }
+      uSchema.reg(_this.missings[missing], property);
+      if (valPropSchema.default) _this.compiled[property] = valPropSchema.default;
+    }
+  });
+
+  // Returning
+  return retorno;
+};</code></pre>
+		</section>
 			</div>
-				<div class="col-md-3 side-content">
-					<nav class="toc hidden-print hidden-sm hidden-xs"></nav>
-				</div>
 		</div>
 	</div>
 	<footer>
@@ -114,3 +202,4 @@
 	
 </body>
 </html>
+<!-- end:source.tmpl.hbs -->

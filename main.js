@@ -79,6 +79,7 @@ const schema = {
   }
 };
 
+
 const card = new Schema(schema);
 const isValid = card.validate(response);
 

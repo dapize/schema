@@ -1,229 +1,264 @@
+<!-- start:readme.hbs -->
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Documentation Index</title>
-
-	<!--[if lt IE 9]>
-	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
-
-	<link type="text/css" rel="stylesheet" href="styles/site.simplex.css">
-
+		<title>FooDoc</title>
+		<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link href="https://fonts.googleapis.com/css?family=PT+Mono" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
+		<link type="text/css" rel="stylesheet" href="css/prism.min.css">
+		<link type="text/css" rel="stylesheet" href="css/template.min.css">
+		<script type="text/javascript">
+			window.TEMPLATE_OPTIONS = {"includeDate":true,"dateFormat":"Do MMM YYYY","systemName":"FooDoc","systemSummary":"A Bootstrap and Handlebars based template for JSDoc3.","systemLogo":"","systemColor":"","navMembers":[{"kind":"class","title":"Classes","summary":"All documented classes."},{"kind":"external","title":"Externals","summary":"All documented external members."},{"kind":"global","title":"Globals","summary":"All documented globals."},{"kind":"mixin","title":"Mixins","summary":"All documented mixins."},{"kind":"interface","title":"Interfaces","summary":"All documented interfaces."},{"kind":"module","title":"Modules","summary":"All documented modules."},{"kind":"namespace","title":"Namespaces","summary":"All documented namespaces."},{"kind":"tutorial","title":"Tutorials","summary":"All available tutorials."}],"footer":"","copyright":"FooDoc Copyright © 2016 The contributors to the JSDoc3 and FooDoc projects.","linenums":true,"collapseSymbols":true,"inverseNav":true,"inlineNav":false,"outputSourceFiles":true,"sourceRootPath":null,"disablePackagePath":true,"outputSourcePath":false,"showTableOfContents":true,"showAccessFilter":true,"analytics":null,"methodHeadingReturns":true,"sort":"linenum, longname, version, since","search":true,"favicon":null,"stylesheets":[],"scripts":[],"monospaceLinks":false,"cleverLinks":false};
+			window.DOCLET_TOC_ENABLED = true;
+			window.DOCLET_AFILTER_ENABLED = false;
+		</script>
 </head>
-
 <body>
-
-<div class="navbar navbar-default navbar-fixed-top ">
-<div class="container">
-	<div class="navbar-header">
-		<a class="navbar-brand" href="index.html">Documentation</a>
-		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-        </button>
-	</div>
-	<div class="navbar-collapse collapse" id="topNavigation">
-		<ul class="nav navbar-nav">
-			
-			<li class="dropdown">
-				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
-				<ul class="dropdown-menu ">
-					<li><a href="Schema.html">Schema</a></li>
+	<!-- start:navbar.hbs -->
+	<header class="navbar navbar-default navbar-fixed-top navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html">
+					FooDoc
+				</a>
+				<!-- displayed on small devices -->
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="navbar-collapse collapse" id="topNavigation">
+				<ul class="nav navbar-nav">
+								<li class="dropdown">
+									<a href="list_class.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="Schema.html">Schema</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
+									<a href="list_namespace.html" class="dropdown-toggle" data-toggle="dropdown">Namespaces<b class="caret"></b></a>
+									<ul class="dropdown-menu">
+											<li><a href="uSchema.html">uSchema</a></li>
+											<li><a href="uSchema.getType.html">uSchema.getType</a></li>
+									</ul>
+								</li>
 				</ul>
-			</li>
-			
-			<li class="dropdown">
-				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
-				<ul class="dropdown-menu ">
-					<li><a href="global.html#getType">getType</a></li><li><a href="global.html#mergeProps">mergeProps</a></li><li><a href="global.html#objLiteral">objLiteral</a></li><li><a href="global.html#reg">reg</a></li><li><a href="global.html#typesAccepted">typesAccepted</a></li>
-				</ul>
-			</li>
-			
-		</ul>
-        
-            <div class="col-sm-3 col-md-3">
-                <form class="navbar-form" role="search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        
-	</div>
+					<!-- start:lunr-search-navbar.hbs -->
+					<form class="navbar-form navbar-right" role="search">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search" id="lunr-search-input">
+							<div class="input-group-btn">
+								<button class="btn btn-default" id="lunr-search-submit">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+					<!-- start:lunr-search-navbar.hbs -->		</div>
+		</div>
+	</header>
+	<!-- end:navbar.hbs -->		<div class="page-header">
+			<div class="container">
+				<span class="kind">readme</span>
+				<h1><span class="name">FooDoc</span></h1>
+				<div class="summary"><p>A Bootstrap and Handlebars based template for JSDoc3.</p></div>			</div>
+		</div>
+	<div class="container content">
+		<div class="row">
+			<div class="col-md-9 main-content">
+		<section class="readme-section">
+			<article><h1>Schema</h1>
+<p>Es un sistema simple de verificación y compilación de objetos a travez de un esquema.</p>
+<h2>Definiciones</h2>
+<p>Existen dos formas de declarar el tipo de valor que tendrá una propiedad:</p>
+<ul>
+<li>La simple: Se define como valor el nombre del tipo que tendrá la propiedad.</li>
+</ul>
+<pre class="prettyprint source lang-javascript"><code>// Ejemplo
+const objSchema = {
+  title: 'string',
+  position: 'number'
+};
+</code></pre>
+<p>Crearemos un esquema con una sola propiedad 'title' de tipo 'string'.</p>
+<pre class="prettyprint source lang-javascript"><code>const myObj = {
+  title: 'string'
+};
+const titleSchema = new Schema(myObj);
+</code></pre>
+<ul>
+<li>La compuesta: Como valor de la propiedad a verificar se crea un objeto con la siguiente sintaxis:</li>
+</ul>
+<pre class="prettyprint source lang-javascript"><code>// Ejemplo sintaxis:
+{
+  type: 'string', // Nombre del tipo
+  required: true, // Si es obligatoria esta propiedad
+  default: 'Titulo cualquiera' // El valor por defecto de la propiedad
+}
+</code></pre>
+<pre class="prettyprint source lang-javascript"><code>// Ejemplo de definición compuesta, tomando como base el ejemplo de más arriba:
+const objSchema = {
+  title: {
+    type: 'string',
+    required: true
+  },
+  position: {
+    type: 'number',
+    default: 10
+  }
+};
+const titleSchema = new Schema(objSchema); // inicializamos el schema.
+</code></pre>
+<blockquote>
+<ul>
+<li>Los tipos disponibles para verificar son: string, number, object, boolean y array , y se declaran escritos como string.</li>
+</ul>
+</blockquote>
+<p>Cuando el tipo de valor es objeto, es posible definir una propiedad adicional llamada 'properties' en donde cada llave de este objeto usa la misma sintaxis de la definición simple o compuesta.</p>
+<pre class="prettyprint source lang-javascript"><code>const objSchema = {
+  friends: {
+    type: 'object',
+    required: true,
+    properties: {
+      work: 'array', // definición simple.
+      neighborhood: { // definición compuesta.
+        type: 'array',
+        required: true
+      }
+    }
+  }
+};
+const friendsSchema = new Schema(objSchema); // inicializamos el schema.
+</code></pre>
+<p>Cuando se espera que el valor de una propiedad en un objeto a validar sea de más de un tipo, digamos, de tipo 'string' o de tipo 'array', se debe declarar los tipos entre de un array</p>
+<pre class="prettyprint source lang-javascript"><code>const objSchema = {
+  tasks: ['string', 'array'] // digamos que tienes solo una tarea (string) o varias (array).
+};
+const tasksSchema = new Schema(objSchema); // inicializamos el schema.
+</code></pre>
+<blockquote>
+<h3>OJO:</h3>
+<ul>
+<li>La propiedad 'required' y 'default', son opcionales.</li>
+<li>Todos las propiedades de un esquema definido son opcionales a menos que se declaren requeridas (con la propiedad 'required' en true obviamente. No hace falta poner 'required' en false obviamente, simplemente se obvia.)</li>
+</ul>
+</blockquote>
+<h3>Métodos disponibles</h3>
+<ul>
+<li>validate(Object) : Sirve para validar el esquema con un objeto. Comunmente el objeto es un response de una llamada ajax.</li>
+</ul>
+<pre class="prettyprint source lang-javascript"><code>// Verificamos si es válido un objeto con el esquema creado más arriba
+const myResponse = {
+  title: 'Título cualquiera'
+};
+titleSchema.validate(myResponse); // => true
+// Si cumple con el esquema definido, porque la propiedad 'title', es un 'string'
+// y existe en el objeto pasado para ser validado.
+</code></pre>
+<ul>
+<li>compile(obj) : Obtiene el objeto fusionado con el esquema iniciado.
+Esto se usa normalmente para obtener un objeto más grande que contendrá las propiedades 'por defecto' que se declararón en el esquema.</li>
+</ul>
+<blockquote>
+<p>Si yá se validó no es necesario pasar como argumento el objeto a compilar.</p>
+</blockquote>
+<pre class="prettyprint source lang-javascript"><code>const myObj = {
+  title: {
+    type: 'string',
+    required: true
+  },
+  description: {
+    type: 'string',
+    default: 'Ejemplo de descripción'
+  },
+  authors: ['string', 'array']
+};
 
-</div>
-</div>
+const myResponse = {
+  title: 'Título cualquiera',
+  authors: 'Loki' // authors: ['Loki', 'Thor', 'Iroman']
+};
 
+const myTitle = new Schema(myObj);
+myTitle.validate(myResponse); // => TRUE
+myTitle.compile();
 
-<div class="container" id="toc-content">
-<div class="row">
+/*
+ =>
 
-	
-	<div class="col-md-8">
-	
-		<div id="main">
-			
-
-	
-	
-
-
-
-
-
-
-
-
-
-
-
-	
-	
-
-
-
-
-
-
-
-
-
-
-
+  {
+    title: 'Título cualquiera',
+    description: 'Ejemplo de descripción',
+    authors: 'Loki'
+  }
+*/
+</code></pre>
+<h3>Getters</h3>
+<ul>
+<li>different : Devuelve los valores diferentes entre el esquema y el objeto pasado.</li>
+<li>missings.required : Devuelve una lista de las propiedades requeridas inexistentes.</li>
+<li>missings.optional : Devuelve una lista de las propiedades opcionales inexistentes.</li>
+<li>errors : Devuelve una lista de los errores encontrados en la compilación.</li>
+</ul>
+<pre class="prettyprint source lang-javascript"><code>// Tomando en cuenta el ejemplo de más arriba:
+console.log(myTitle.different);
+console.log(myTitle.missings.required);
+console.log(myTitle.missings.optional);
+console.log(myTitle.errors);
+</code></pre>
+<h2>Navegadores compatibles</h2>
+<p>IE11+, Chrome, Firefox, Safari, Opera</p>
+<h2>Extras</h2>
+<p>Más información técnica en la carpeta 'docs'</p>
+<h3>Por agregar:</h3>
+<ul>
+<li>Método 'extend' : Servirá para extender un schema previamente definido.</li>
+<li>Propiedad 'pattern': Servirá para verificar específicamente si el valor cumple con un patrón definido, muy aparte de la existencia de la misma propiedad en el objeto pasado.</li>
+</ul>
+<hr>
+<p>Por el momento es todo lo que trae, más adelante agregaré más caracteristicas, como más métodos y eventos.</p>
+<h2>Licencia</h2>
+<p>MIT</p></article>
+		</section>
+			</div>
+				<div class="col-md-3 side-content">
+					<nav class="toc hidden-print hidden-sm hidden-xs"></nav>
+				</div>
 		</div>
 	</div>
-
-	<div class="clearfix"></div>
-
-	
-		<div class="col-md-3">
-			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
+	<footer>
+				<div class="copyright">FooDoc Copyright © 2016 The contributors to the JSDoc3 and FooDoc projects.</div>
+			<div class="generated-by">Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on 15th Feb 2020 using the <a href="https://github.com/steveush/foodoc">FooDoc template</a>.</div>
+	</footer>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/clipboard.min.js"></script>
+	<script src="js/prism.min.js"></script>
+	<script src="js/template.min.js"></script>
+		<!-- start:lunr-search-modal.hbs -->
+		<div class="modal fade" id="lunr-search-modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Search results</h4>
+					</div>
+					<div class="modal-body" id="lunr-search-body">
+					</div>
+					<div class="modal-footer" id="lunr-search-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
 		</div>
+		<!-- end:lunr-search-modal.hbs -->		<script src="js/lunr.min.js"></script>
 	
-
-</div>
-</div>
-
-
-    <div class="modal fade" id="searchResults">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Search results</h4>
-          </div>
-          <div class="modal-body"></div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div>
-
-
-<footer>
-
-
-<span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a>
-	
-		on 2020-02-11T04:41:00-05:00
-	
-	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
-</span>
-</footer>
-
-<script src="scripts/docstrap.lib.js"></script>
-<script src="scripts/toc.js"></script>
-
-    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
-
-
-<script>
-$( function () {
-	$( "[id*='$']" ).each( function () {
-		var $this = $( this );
-
-		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
-	} );
-
-	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
-		var $this = $( this );
-
-		var example = $this.find( "code" );
-		exampleText = example.html();
-		var lang = /{@lang (.*?)}/.exec( exampleText );
-		if ( lang && lang[1] ) {
-			exampleText = exampleText.replace( lang[0], "" );
-			example.html( exampleText );
-			lang = lang[1];
-		} else {
-			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
-			lang = langClassMatch ? langClassMatch[1] : "javascript";
-		}
-
-		if ( lang ) {
-
-			$this
-			.addClass( "sunlight-highlight-" + lang )
-			.addClass( "linenums" )
-			.html( example.html() );
-
-		}
-	} );
-
-	Sunlight.highlightAll( {
-		lineNumbers : false,
-		showMenu : true,
-		enableDoclinks : true
-	} );
-
-	$.catchAnchorLinks( {
-        navbarOffset: 10
-	} );
-	$( "#toc" ).toc( {
-		anchorName  : function ( i, heading, prefix ) {
-			return $( heading ).attr( "id" ) || ( prefix + i );
-		},
-		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
-		showAndHide : false,
-		smoothScrolling: true
-	} );
-
-	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
-	$( '.dropdown-toggle' ).dropdown();
-
-    $( "table" ).each( function () {
-      var $this = $( this );
-      $this.addClass('table');
-    } );
-
-} );
-</script>
-
-
-
-<!--Navigation and Symbol Display-->
-
-
-<!--Google Analytics-->
-
-
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            SearcherDisplay.init();
-        });
-    </script>
-
-
 </body>
 </html>
+<!-- end:readme.hbs -->
