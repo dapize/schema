@@ -6,6 +6,19 @@
  * @property {Array} typesAccepted Lista de tipos aceptados para ser procesados.
  */
 const uSchema = {
+  /**
+   * Setea los valores por defecto del constructor
+   * @param {Function} _this Constructor
+   */
+  initValues: function (_this) {
+    _this.missings = {
+      required: [],
+      optional: []
+    };
+    _this.different = {};
+    _this.errors = [];
+    _this.compiled = {};
+  },
 
   /**
    * Verifica si lo pasado es un objeto literal o no
@@ -119,7 +132,6 @@ const uSchema = {
       };
     });
   }
-
 };
 /**
  * Constructor del schema.
@@ -137,14 +149,9 @@ const uSchema = {
  * const card = new Schema(schema);
  */
 function Schema (obj) {
+  if (!obj) return console.log('Object missing ', obj);
   this.schema = Object.assign({}, obj);
-  this.missings = {
-    required: [],
-    optional: []
-  };
-  this.different = {};
-  this.errors = [];
-  this.compiled = {};
+  uSchema.initValues(this);
 };
 /**
  * Fusiona el objeto pasado con el schema creado
@@ -161,6 +168,10 @@ Schema.prototype.compile = function (obj) {
  * @returns {Boolean} Indica si el objeto pasado es válido o no con el schema.
  */
 Schema.prototype.validate = function (response) {
+  // resetting previus values
+  uSchema.initValues(this);
+  
+  // init
   const schema = this.schema,
         _this = this;
   let retorno = true; // by default, is valid :)

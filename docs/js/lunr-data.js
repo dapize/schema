@@ -53,17 +53,17 @@ window.lunrData = {
           "document",
           "global"
         ],
-        "list_class.html": [
-          "class",
-          "document",
-          "list",
-          "list:class"
-        ],
         "list_namespace.html": [
           "document",
           "list",
           "list:namespac",
           "namespac"
+        ],
+        "list_class.html": [
+          "class",
+          "document",
+          "list",
+          "list:class"
         ],
         "Schema.html": [
           "class",
@@ -107,6 +107,41 @@ window.lunrData = {
           "utilidad",
           "varia"
         ],
+        "uSchema.html#.initValues": [
+          "_thi",
+          "constructor",
+          "defecto",
+          "del",
+          "function",
+          "initvalu",
+          "lo",
+          "lt;static&gt",
+          "por",
+          "setea",
+          "uschema.initvalu",
+          "valor"
+        ],
+        "uSchema.html#.mergeProps": [
+          "de",
+          "el",
+          "function",
+          "lo",
+          "lt;static&gt",
+          "merg",
+          "mergeprop",
+          "object",
+          "obtenido",
+          "parentprop",
+          "por",
+          "realiza",
+          "registro",
+          "schema",
+          "subschema",
+          "target",
+          "tratado",
+          "un",
+          "uschema.mergeprop"
+        ],
         "uSchema.html#.objLiteral": [
           "boolean",
           "es",
@@ -147,27 +182,6 @@ window.lunrData = {
           "un",
           "uschema.reg"
         ],
-        "uSchema.html#.mergeProps": [
-          "de",
-          "el",
-          "function",
-          "lo",
-          "lt;static&gt",
-          "merg",
-          "mergeprop",
-          "object",
-          "obtenido",
-          "parentprop",
-          "por",
-          "realiza",
-          "registro",
-          "schema",
-          "subschema",
-          "target",
-          "tratado",
-          "un",
-          "uschema.mergeprop"
-        ],
         "uSchema.getType.html": [
           "dato",
           "de",
@@ -182,6 +196,24 @@ window.lunrData = {
           "un",
           "una",
           "uschema.gettyp"
+        ],
+        "uSchema.getType.html#.schema": [
+          "dato",
+          "de",
+          "devuelv",
+          "el",
+          "function",
+          "gettype.schema",
+          "lt;static&gt",
+          "objeto",
+          "propiedad",
+          "schema",
+          "string",
+          "tipo",
+          "un",
+          "una",
+          "uschema.gettype.schema",
+          "valu"
         ],
         "uSchema.getType.html#.obj": [
           "comun",
@@ -203,27 +235,9 @@ window.lunrData = {
           "uschema.gettype.obj",
           "valu",
           "y"
-        ],
-        "uSchema.getType.html#.schema": [
-          "dato",
-          "de",
-          "devuelv",
-          "el",
-          "function",
-          "gettype.schema",
-          "lt;static&gt",
-          "objeto",
-          "propiedad",
-          "schema",
-          "string",
-          "tipo",
-          "un",
-          "una",
-          "uschema.gettype.schema",
-          "valu"
         ]
       },
-      "length": 14
+      "length": 15
     },
     "tokenStore": {
       "root": {
@@ -343,6 +357,14 @@ window.lunrData = {
                             "ref": "Schema.html#validate",
                             "tf": 110
                           },
+                          "uSchema.html#.initValues": {
+                            "ref": "uSchema.html#.initValues",
+                            "tf": 110
+                          },
+                          "uSchema.html#.mergeProps": {
+                            "ref": "uSchema.html#.mergeProps",
+                            "tf": 110
+                          },
                           "uSchema.html#.objLiteral": {
                             "ref": "uSchema.html#.objLiteral",
                             "tf": 110
@@ -351,16 +373,12 @@ window.lunrData = {
                             "ref": "uSchema.html#.reg",
                             "tf": 110
                           },
-                          "uSchema.html#.mergeProps": {
-                            "ref": "uSchema.html#.mergeProps",
+                          "uSchema.getType.html#.schema": {
+                            "ref": "uSchema.getType.html#.schema",
                             "tf": 110
                           },
                           "uSchema.getType.html#.obj": {
                             "ref": "uSchema.getType.html#.obj",
-                            "tf": 110
-                          },
-                          "uSchema.getType.html#.schema": {
-                            "ref": "uSchema.getType.html#.schema",
                             "tf": 110
                           }
                         }
@@ -437,6 +455,29 @@ window.lunrData = {
                     "index.html": {
                       "ref": "index.html",
                       "tf": 1300
+                    }
+                  }
+                }
+              }
+            },
+            "i": {
+              "docs": {},
+              "t": {
+                "docs": {},
+                "v": {
+                  "docs": {},
+                  "a": {
+                    "docs": {},
+                    "l": {
+                      "docs": {},
+                      "u": {
+                        "docs": {
+                          "uSchema.html#.initValues": {
+                            "ref": "uSchema.html#.initValues",
+                            "tf": 683.3333333333334
+                          }
+                        }
+                      }
                     }
                   }
                 }
@@ -560,19 +601,19 @@ window.lunrData = {
                     "docs": {},
                     "r": {
                       "docs": {},
-                      "a": {
-                        "docs": {
-                          "uSchema.html#.reg": {
-                            "ref": "uSchema.html#.reg",
-                            "tf": 3.3333333333333335
-                          }
-                        }
-                      },
                       "o": {
                         "docs": {
                           "uSchema.html#.mergeProps": {
                             "ref": "uSchema.html#.mergeProps",
                             "tf": 3.8461538461538463
+                          }
+                        }
+                      },
+                      "a": {
+                        "docs": {
+                          "uSchema.html#.reg": {
+                            "ref": "uSchema.html#.reg",
+                            "tf": 3.3333333333333335
                           }
                         }
                       }
@@ -618,12 +659,12 @@ window.lunrData = {
                   "docs": {},
                   "t": {
                     "docs": {
-                      "uSchema.html#.reg": {
-                        "ref": "uSchema.html#.reg",
-                        "tf": 16.666666666666664
-                      },
                       "uSchema.html#.mergeProps": {
                         "ref": "uSchema.html#.mergeProps",
+                        "tf": 16.666666666666664
+                      },
+                      "uSchema.html#.reg": {
+                        "ref": "uSchema.html#.reg",
                         "tf": 16.666666666666664
                       }
                     }
@@ -665,13 +706,13 @@ window.lunrData = {
                     "ref": "uSchema.getType.html",
                     "tf": 4.545454545454546
                   },
-                  "uSchema.getType.html#.obj": {
-                    "ref": "uSchema.getType.html#.obj",
-                    "tf": 3.571428571428571
-                  },
                   "uSchema.getType.html#.schema": {
                     "ref": "uSchema.getType.html#.schema",
                     "tf": 4.166666666666666
+                  },
+                  "uSchema.getType.html#.obj": {
+                    "ref": "uSchema.getType.html#.obj",
+                    "tf": 3.571428571428571
                   }
                 }
               }
@@ -698,12 +739,12 @@ window.lunrData = {
                             "ref": "global.html",
                             "tf": 35
                           },
-                          "list_class.html": {
-                            "ref": "list_class.html",
-                            "tf": 35
-                          },
                           "list_namespace.html": {
                             "ref": "list_namespace.html",
+                            "tf": 35
+                          },
+                          "list_class.html": {
+                            "ref": "list_class.html",
                             "tf": 35
                           }
                         }
@@ -716,25 +757,25 @@ window.lunrData = {
           },
           "e": {
             "docs": {
-              "uSchema.html#.reg": {
-                "ref": "uSchema.html#.reg",
-                "tf": 6.666666666666667
-              },
               "uSchema.html#.mergeProps": {
                 "ref": "uSchema.html#.mergeProps",
                 "tf": 7.6923076923076925
+              },
+              "uSchema.html#.reg": {
+                "ref": "uSchema.html#.reg",
+                "tf": 6.666666666666667
               },
               "uSchema.getType.html": {
                 "ref": "uSchema.getType.html",
                 "tf": 9.090909090909092
               },
-              "uSchema.getType.html#.obj": {
-                "ref": "uSchema.getType.html#.obj",
-                "tf": 10.714285714285714
-              },
               "uSchema.getType.html#.schema": {
                 "ref": "uSchema.getType.html#.schema",
                 "tf": 12.5
+              },
+              "uSchema.getType.html#.obj": {
+                "ref": "uSchema.getType.html#.obj",
+                "tf": 10.714285714285714
               }
             },
             "l": {
@@ -742,6 +783,10 @@ window.lunrData = {
                 "Schema.html": {
                   "ref": "Schema.html",
                   "tf": 16.666666666666664
+                },
+                "uSchema.html#.initValues": {
+                  "ref": "uSchema.html#.initValues",
+                  "tf": 7.142857142857142
                 }
               }
             },
@@ -764,6 +809,26 @@ window.lunrData = {
                               "tf": 5.555555555555555
                             }
                           }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "f": {
+              "docs": {},
+              "e": {
+                "docs": {},
+                "c": {
+                  "docs": {},
+                  "t": {
+                    "docs": {},
+                    "o": {
+                      "docs": {
+                        "uSchema.html#.initValues": {
+                          "ref": "uSchema.html#.initValues",
+                          "tf": 7.142857142857142
                         }
                       }
                     }
@@ -802,13 +867,13 @@ window.lunrData = {
                           "ref": "uSchema.getType.html",
                           "tf": 4.545454545454546
                         },
-                        "uSchema.getType.html#.obj": {
-                          "ref": "uSchema.getType.html#.obj",
-                          "tf": 3.571428571428571
-                        },
                         "uSchema.getType.html#.schema": {
                           "ref": "uSchema.getType.html#.schema",
                           "tf": 4.166666666666666
+                        },
+                        "uSchema.getType.html#.obj": {
+                          "ref": "uSchema.getType.html#.obj",
+                          "tf": 3.571428571428571
                         }
                       }
                     }
@@ -835,13 +900,13 @@ window.lunrData = {
                     "ref": "uSchema.getType.html",
                     "tf": 4.545454545454546
                   },
-                  "uSchema.getType.html#.obj": {
-                    "ref": "uSchema.getType.html#.obj",
-                    "tf": 3.571428571428571
-                  },
                   "uSchema.getType.html#.schema": {
                     "ref": "uSchema.getType.html#.schema",
                     "tf": 4.166666666666666
+                  },
+                  "uSchema.getType.html#.obj": {
+                    "ref": "uSchema.getType.html#.obj",
+                    "tf": 3.571428571428571
                   }
                 }
               }
@@ -889,20 +954,6 @@ window.lunrData = {
                       "docs": {},
                       ".": {
                         "docs": {},
-                        "o": {
-                          "docs": {},
-                          "b": {
-                            "docs": {},
-                            "j": {
-                              "docs": {
-                                "uSchema.getType.html#.obj": {
-                                  "ref": "uSchema.getType.html#.obj",
-                                  "tf": 100
-                                }
-                              }
-                            }
-                          }
-                        },
                         "s": {
                           "docs": {},
                           "c": {
@@ -924,6 +975,226 @@ window.lunrData = {
                                 }
                               }
                             }
+                          }
+                        },
+                        "o": {
+                          "docs": {},
+                          "b": {
+                            "docs": {},
+                            "j": {
+                              "docs": {
+                                "uSchema.getType.html#.obj": {
+                                  "ref": "uSchema.getType.html#.obj",
+                                  "tf": 100
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "l": {
+          "docs": {},
+          "i": {
+            "docs": {},
+            "s": {
+              "docs": {},
+              "t": {
+                "docs": {
+                  "list_namespace.html": {
+                    "ref": "list_namespace.html",
+                    "tf": 110
+                  },
+                  "list_class.html": {
+                    "ref": "list_class.html",
+                    "tf": 110
+                  }
+                },
+                ":": {
+                  "docs": {},
+                  "n": {
+                    "docs": {},
+                    "a": {
+                      "docs": {},
+                      "m": {
+                        "docs": {},
+                        "e": {
+                          "docs": {},
+                          "s": {
+                            "docs": {},
+                            "p": {
+                              "docs": {},
+                              "a": {
+                                "docs": {},
+                                "c": {
+                                  "docs": {
+                                    "list_namespace.html": {
+                                      "ref": "list_namespace.html",
+                                      "tf": 1300
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "c": {
+                    "docs": {},
+                    "l": {
+                      "docs": {},
+                      "a": {
+                        "docs": {},
+                        "s": {
+                          "docs": {},
+                          "s": {
+                            "docs": {
+                              "list_class.html": {
+                                "ref": "list_class.html",
+                                "tf": 1300
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "t": {
+              "docs": {},
+              "e": {
+                "docs": {},
+                "r": {
+                  "docs": {
+                    "uSchema.html#.objLiteral": {
+                      "ref": "uSchema.html#.objLiteral",
+                      "tf": 5.555555555555555
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "o": {
+            "docs": {
+              "uSchema.html#.initValues": {
+                "ref": "uSchema.html#.initValues",
+                "tf": 7.142857142857142
+              },
+              "uSchema.html#.mergeProps": {
+                "ref": "uSchema.html#.mergeProps",
+                "tf": 3.8461538461538463
+              },
+              "uSchema.html#.objLiteral": {
+                "ref": "uSchema.html#.objLiteral",
+                "tf": 5.555555555555555
+              }
+            },
+            "g": {
+              "docs": {
+                "uSchema.html#.reg": {
+                  "ref": "uSchema.html#.reg",
+                  "tf": 3.3333333333333335
+                }
+              }
+            }
+          },
+          "t": {
+            "docs": {},
+            ";": {
+              "docs": {},
+              "s": {
+                "docs": {},
+                "t": {
+                  "docs": {},
+                  "a": {
+                    "docs": {},
+                    "t": {
+                      "docs": {},
+                      "i": {
+                        "docs": {},
+                        "c": {
+                          "docs": {},
+                          "&": {
+                            "docs": {},
+                            "g": {
+                              "docs": {},
+                              "t": {
+                                "docs": {
+                                  "uSchema.html#.initValues": {
+                                    "ref": "uSchema.html#.initValues",
+                                    "tf": 33.33333333333333
+                                  },
+                                  "uSchema.html#.mergeProps": {
+                                    "ref": "uSchema.html#.mergeProps",
+                                    "tf": 16.666666666666664
+                                  },
+                                  "uSchema.html#.objLiteral": {
+                                    "ref": "uSchema.html#.objLiteral",
+                                    "tf": 25
+                                  },
+                                  "uSchema.html#.reg": {
+                                    "ref": "uSchema.html#.reg",
+                                    "tf": 16.666666666666664
+                                  },
+                                  "uSchema.getType.html#.schema": {
+                                    "ref": "uSchema.getType.html#.schema",
+                                    "tf": 25
+                                  },
+                                  "uSchema.getType.html#.obj": {
+                                    "ref": "uSchema.getType.html#.obj",
+                                    "tf": 25
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "n": {
+          "docs": {},
+          "a": {
+            "docs": {},
+            "m": {
+              "docs": {},
+              "e": {
+                "docs": {},
+                "s": {
+                  "docs": {},
+                  "p": {
+                    "docs": {},
+                    "a": {
+                      "docs": {},
+                      "c": {
+                        "docs": {
+                          "list_namespace.html": {
+                            "ref": "list_namespace.html",
+                            "tf": 635
+                          },
+                          "uSchema.html": {
+                            "ref": "uSchema.html",
+                            "tf": 110
+                          },
+                          "uSchema.getType.html": {
+                            "ref": "uSchema.getType.html",
+                            "tf": 110
                           }
                         }
                       }
@@ -989,6 +1260,10 @@ window.lunrData = {
                                 "Schema.html": {
                                   "ref": "Schema.html",
                                   "tf": 16.666666666666664
+                                },
+                                "uSchema.html#.initValues": {
+                                  "ref": "uSchema.html#.initValues",
+                                  "tf": 7.142857142857142
                                 }
                               }
                             }
@@ -1097,204 +1372,6 @@ window.lunrData = {
                     "Schema.html#validate": {
                       "ref": "Schema.html#validate",
                       "tf": 5.555555555555555
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "l": {
-          "docs": {},
-          "i": {
-            "docs": {},
-            "s": {
-              "docs": {},
-              "t": {
-                "docs": {
-                  "list_class.html": {
-                    "ref": "list_class.html",
-                    "tf": 110
-                  },
-                  "list_namespace.html": {
-                    "ref": "list_namespace.html",
-                    "tf": 110
-                  }
-                },
-                ":": {
-                  "docs": {},
-                  "c": {
-                    "docs": {},
-                    "l": {
-                      "docs": {},
-                      "a": {
-                        "docs": {},
-                        "s": {
-                          "docs": {},
-                          "s": {
-                            "docs": {
-                              "list_class.html": {
-                                "ref": "list_class.html",
-                                "tf": 1300
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "n": {
-                    "docs": {},
-                    "a": {
-                      "docs": {},
-                      "m": {
-                        "docs": {},
-                        "e": {
-                          "docs": {},
-                          "s": {
-                            "docs": {},
-                            "p": {
-                              "docs": {},
-                              "a": {
-                                "docs": {},
-                                "c": {
-                                  "docs": {
-                                    "list_namespace.html": {
-                                      "ref": "list_namespace.html",
-                                      "tf": 1300
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "t": {
-              "docs": {},
-              "e": {
-                "docs": {},
-                "r": {
-                  "docs": {
-                    "uSchema.html#.objLiteral": {
-                      "ref": "uSchema.html#.objLiteral",
-                      "tf": 5.555555555555555
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "o": {
-            "docs": {
-              "uSchema.html#.objLiteral": {
-                "ref": "uSchema.html#.objLiteral",
-                "tf": 5.555555555555555
-              },
-              "uSchema.html#.mergeProps": {
-                "ref": "uSchema.html#.mergeProps",
-                "tf": 3.8461538461538463
-              }
-            },
-            "g": {
-              "docs": {
-                "uSchema.html#.reg": {
-                  "ref": "uSchema.html#.reg",
-                  "tf": 3.3333333333333335
-                }
-              }
-            }
-          },
-          "t": {
-            "docs": {},
-            ";": {
-              "docs": {},
-              "s": {
-                "docs": {},
-                "t": {
-                  "docs": {},
-                  "a": {
-                    "docs": {},
-                    "t": {
-                      "docs": {},
-                      "i": {
-                        "docs": {},
-                        "c": {
-                          "docs": {},
-                          "&": {
-                            "docs": {},
-                            "g": {
-                              "docs": {},
-                              "t": {
-                                "docs": {
-                                  "uSchema.html#.objLiteral": {
-                                    "ref": "uSchema.html#.objLiteral",
-                                    "tf": 25
-                                  },
-                                  "uSchema.html#.reg": {
-                                    "ref": "uSchema.html#.reg",
-                                    "tf": 16.666666666666664
-                                  },
-                                  "uSchema.html#.mergeProps": {
-                                    "ref": "uSchema.html#.mergeProps",
-                                    "tf": 16.666666666666664
-                                  },
-                                  "uSchema.getType.html#.obj": {
-                                    "ref": "uSchema.getType.html#.obj",
-                                    "tf": 25
-                                  },
-                                  "uSchema.getType.html#.schema": {
-                                    "ref": "uSchema.getType.html#.schema",
-                                    "tf": 25
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "n": {
-          "docs": {},
-          "a": {
-            "docs": {},
-            "m": {
-              "docs": {},
-              "e": {
-                "docs": {},
-                "s": {
-                  "docs": {},
-                  "p": {
-                    "docs": {},
-                    "a": {
-                      "docs": {},
-                      "c": {
-                        "docs": {
-                          "list_namespace.html": {
-                            "ref": "list_namespace.html",
-                            "tf": 635
-                          },
-                          "uSchema.html": {
-                            "ref": "uSchema.html",
-                            "tf": 110
-                          },
-                          "uSchema.getType.html": {
-                            "ref": "uSchema.getType.html",
-                            "tf": 110
-                          }
-                        }
-                      }
                     }
                   }
                 }
@@ -1412,6 +1489,23 @@ window.lunrData = {
               }
             }
           },
+          "e": {
+            "docs": {},
+            "t": {
+              "docs": {},
+              "e": {
+                "docs": {},
+                "a": {
+                  "docs": {
+                    "uSchema.html#.initValues": {
+                      "ref": "uSchema.html#.initValues",
+                      "tf": 7.142857142857142
+                    }
+                  }
+                }
+              }
+            }
+          },
           "u": {
             "docs": {},
             "b": {
@@ -1451,12 +1545,12 @@ window.lunrData = {
                   "docs": {},
                   "g": {
                     "docs": {
-                      "uSchema.getType.html#.obj": {
-                        "ref": "uSchema.getType.html#.obj",
-                        "tf": 25
-                      },
                       "uSchema.getType.html#.schema": {
                         "ref": "uSchema.getType.html#.schema",
+                        "tf": 25
+                      },
+                      "uSchema.getType.html#.obj": {
+                        "ref": "uSchema.getType.html#.obj",
                         "tf": 25
                       }
                     }
@@ -1478,25 +1572,25 @@ window.lunrData = {
                 "ref": "Schema.html#validate",
                 "tf": 5.555555555555555
               },
-              "uSchema.html#.reg": {
-                "ref": "uSchema.html#.reg",
-                "tf": 3.3333333333333335
-              },
               "uSchema.html#.mergeProps": {
                 "ref": "uSchema.html#.mergeProps",
                 "tf": 3.8461538461538463
+              },
+              "uSchema.html#.reg": {
+                "ref": "uSchema.html#.reg",
+                "tf": 3.3333333333333335
               },
               "uSchema.getType.html": {
                 "ref": "uSchema.getType.html",
                 "tf": 4.545454545454546
               },
-              "uSchema.getType.html#.obj": {
-                "ref": "uSchema.getType.html#.obj",
-                "tf": 3.571428571428571
-              },
               "uSchema.getType.html#.schema": {
                 "ref": "uSchema.getType.html#.schema",
                 "tf": 4.166666666666666
+              },
+              "uSchema.getType.html#.obj": {
+                "ref": "uSchema.getType.html#.obj",
+                "tf": 3.571428571428571
               }
             }
           },
@@ -1582,13 +1676,13 @@ window.lunrData = {
                         "ref": "uSchema.html#.reg",
                         "tf": 3.3333333333333335
                       },
-                      "uSchema.getType.html#.obj": {
-                        "ref": "uSchema.getType.html#.obj",
-                        "tf": 3.571428571428571
-                      },
                       "uSchema.getType.html#.schema": {
                         "ref": "uSchema.getType.html#.schema",
                         "tf": 4.166666666666666
+                      },
+                      "uSchema.getType.html#.obj": {
+                        "ref": "uSchema.getType.html#.obj",
+                        "tf": 3.571428571428571
                       }
                     }
                   }
@@ -1684,14 +1778,6 @@ window.lunrData = {
             },
             "r": {
               "docs": {},
-              "a": {
-                "docs": {
-                  "uSchema.html#.reg": {
-                    "ref": "uSchema.html#.reg",
-                    "tf": 6.666666666666667
-                  }
-                }
-              },
               "e": {
                 "docs": {},
                 "n": {
@@ -1716,6 +1802,29 @@ window.lunrData = {
                       }
                     }
                   }
+                }
+              },
+              "a": {
+                "docs": {
+                  "uSchema.html#.reg": {
+                    "ref": "uSchema.html#.reg",
+                    "tf": 6.666666666666667
+                  }
+                }
+              }
+            }
+          },
+          "o": {
+            "docs": {},
+            "r": {
+              "docs": {
+                "uSchema.html#.initValues": {
+                  "ref": "uSchema.html#.initValues",
+                  "tf": 7.142857142857142
+                },
+                "uSchema.html#.mergeProps": {
+                  "ref": "uSchema.html#.mergeProps",
+                  "tf": 3.8461538461538463
                 }
               }
             }
@@ -1754,30 +1863,19 @@ window.lunrData = {
                               "ref": "uSchema.getType.html",
                               "tf": 4.545454545454546
                             },
-                            "uSchema.getType.html#.obj": {
-                              "ref": "uSchema.getType.html#.obj",
-                              "tf": 3.571428571428571
-                            },
                             "uSchema.getType.html#.schema": {
                               "ref": "uSchema.getType.html#.schema",
                               "tf": 4.166666666666666
+                            },
+                            "uSchema.getType.html#.obj": {
+                              "ref": "uSchema.getType.html#.obj",
+                              "tf": 3.571428571428571
                             }
                           }
                         }
                       }
                     }
                   }
-                }
-              }
-            }
-          },
-          "o": {
-            "docs": {},
-            "r": {
-              "docs": {
-                "uSchema.html#.mergeProps": {
-                  "ref": "uSchema.html#.mergeProps",
-                  "tf": 3.8461538461538463
                 }
               }
             }
@@ -1791,6 +1889,10 @@ window.lunrData = {
                 "ref": "Schema.html#validate",
                 "tf": 5.555555555555555
               },
+              "uSchema.html#.mergeProps": {
+                "ref": "uSchema.html#.mergeProps",
+                "tf": 7.6923076923076925
+              },
               "uSchema.html#.objLiteral": {
                 "ref": "uSchema.html#.objLiteral",
                 "tf": 5.555555555555555
@@ -1799,21 +1901,17 @@ window.lunrData = {
                 "ref": "uSchema.html#.reg",
                 "tf": 3.3333333333333335
               },
-              "uSchema.html#.mergeProps": {
-                "ref": "uSchema.html#.mergeProps",
-                "tf": 7.6923076923076925
-              },
               "uSchema.getType.html": {
                 "ref": "uSchema.getType.html",
                 "tf": 4.545454545454546
               },
-              "uSchema.getType.html#.obj": {
-                "ref": "uSchema.getType.html#.obj",
-                "tf": 3.571428571428571
-              },
               "uSchema.getType.html#.schema": {
                 "ref": "uSchema.getType.html#.schema",
                 "tf": 4.166666666666666
+              },
+              "uSchema.getType.html#.obj": {
+                "ref": "uSchema.getType.html#.obj",
+                "tf": 3.571428571428571
               }
             },
             "a": {
@@ -1822,13 +1920,13 @@ window.lunrData = {
                   "ref": "uSchema.getType.html",
                   "tf": 4.545454545454546
                 },
-                "uSchema.getType.html#.obj": {
-                  "ref": "uSchema.getType.html#.obj",
-                  "tf": 3.571428571428571
-                },
                 "uSchema.getType.html#.schema": {
                   "ref": "uSchema.getType.html#.schema",
                   "tf": 4.166666666666666
+                },
+                "uSchema.getType.html#.obj": {
+                  "ref": "uSchema.getType.html#.obj",
+                  "tf": 3.571428571428571
                 }
               }
             }
@@ -1852,6 +1950,67 @@ window.lunrData = {
                       },
                       ".": {
                         "docs": {},
+                        "i": {
+                          "docs": {},
+                          "n": {
+                            "docs": {},
+                            "i": {
+                              "docs": {},
+                              "t": {
+                                "docs": {},
+                                "v": {
+                                  "docs": {},
+                                  "a": {
+                                    "docs": {},
+                                    "l": {
+                                      "docs": {},
+                                      "u": {
+                                        "docs": {
+                                          "uSchema.html#.initValues": {
+                                            "ref": "uSchema.html#.initValues",
+                                            "tf": 1150
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "m": {
+                          "docs": {},
+                          "e": {
+                            "docs": {},
+                            "r": {
+                              "docs": {},
+                              "g": {
+                                "docs": {},
+                                "e": {
+                                  "docs": {},
+                                  "p": {
+                                    "docs": {},
+                                    "r": {
+                                      "docs": {},
+                                      "o": {
+                                        "docs": {},
+                                        "p": {
+                                          "docs": {
+                                            "uSchema.html#.mergeProps": {
+                                              "ref": "uSchema.html#.mergeProps",
+                                              "tf": 1150
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
                         "o": {
                           "docs": {},
                           "b": {
@@ -1895,38 +2054,6 @@ window.lunrData = {
                             }
                           }
                         },
-                        "m": {
-                          "docs": {},
-                          "e": {
-                            "docs": {},
-                            "r": {
-                              "docs": {},
-                              "g": {
-                                "docs": {},
-                                "e": {
-                                  "docs": {},
-                                  "p": {
-                                    "docs": {},
-                                    "r": {
-                                      "docs": {},
-                                      "o": {
-                                        "docs": {},
-                                        "p": {
-                                          "docs": {
-                                            "uSchema.html#.mergeProps": {
-                                              "ref": "uSchema.html#.mergeProps",
-                                              "tf": 1150
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        },
                         "g": {
                           "docs": {},
                           "e": {
@@ -1948,20 +2075,6 @@ window.lunrData = {
                                       "docs": {},
                                       ".": {
                                         "docs": {},
-                                        "o": {
-                                          "docs": {},
-                                          "b": {
-                                            "docs": {},
-                                            "j": {
-                                              "docs": {
-                                                "uSchema.getType.html#.obj": {
-                                                  "ref": "uSchema.getType.html#.obj",
-                                                  "tf": 1100
-                                                }
-                                              }
-                                            }
-                                          }
-                                        },
                                         "s": {
                                           "docs": {},
                                           "c": {
@@ -1980,6 +2093,20 @@ window.lunrData = {
                                                       }
                                                     }
                                                   }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "o": {
+                                          "docs": {},
+                                          "b": {
+                                            "docs": {},
+                                            "j": {
+                                              "docs": {
+                                                "uSchema.getType.html#.obj": {
+                                                  "ref": "uSchema.getType.html#.obj",
+                                                  "tf": 1100
                                                 }
                                               }
                                             }
@@ -2052,14 +2179,25 @@ window.lunrData = {
                   }
                 }
               },
+              "o": {
+                "docs": {},
+                "r": {
+                  "docs": {
+                    "uSchema.html#.initValues": {
+                      "ref": "uSchema.html#.initValues",
+                      "tf": 7.142857142857142
+                    }
+                  }
+                }
+              },
               "u": {
                 "docs": {
-                  "uSchema.getType.html#.obj": {
-                    "ref": "uSchema.getType.html#.obj",
-                    "tf": 25
-                  },
                   "uSchema.getType.html#.schema": {
                     "ref": "uSchema.getType.html#.schema",
+                    "tf": 25
+                  },
+                  "uSchema.getType.html#.obj": {
+                    "ref": "uSchema.getType.html#.obj",
                     "tf": 25
                   }
                 }
@@ -2107,15 +2245,18 @@ window.lunrData = {
             }
           }
         },
-        "q": {
+        "_": {
           "docs": {},
-          "u": {
+          "t": {
             "docs": {},
-            "e": {
-              "docs": {
-                "uSchema.html#.reg": {
-                  "ref": "uSchema.html#.reg",
-                  "tf": 3.3333333333333335
+            "h": {
+              "docs": {},
+              "i": {
+                "docs": {
+                  "uSchema.html#.initValues": {
+                    "ref": "uSchema.html#.initValues",
+                    "tf": 33.33333333333333
+                  }
                 }
               }
             }
@@ -2158,6 +2299,20 @@ window.lunrData = {
             }
           }
         },
+        "q": {
+          "docs": {},
+          "u": {
+            "docs": {},
+            "e": {
+              "docs": {
+                "uSchema.html#.reg": {
+                  "ref": "uSchema.html#.reg",
+                  "tf": 3.3333333333333335
+                }
+              }
+            }
+          }
+        },
         "y": {
           "docs": {
             "uSchema.getType.html#.obj": {
@@ -2167,9 +2322,10 @@ window.lunrData = {
           }
         }
       },
-      "length": 155
+      "length": 167
     },
     "corpusTokens": [
+      "_thi",
       "base",
       "boolean",
       "bootstrap",
@@ -2185,6 +2341,7 @@ window.lunrData = {
       "data",
       "dato",
       "de",
+      "defecto",
       "del",
       "dentro",
       "designado",
@@ -2203,6 +2360,7 @@ window.lunrData = {
       "handlebar",
       "incident",
       "index",
+      "initvalu",
       "jsdoc3",
       "list",
       "list:class",
@@ -2237,6 +2395,7 @@ window.lunrData = {
       "schema",
       "schema#compil",
       "schema#valid",
+      "setea",
       "si",
       "sirva",
       "string",
@@ -2251,12 +2410,14 @@ window.lunrData = {
       "uschema.gettyp",
       "uschema.gettype.obj",
       "uschema.gettype.schema",
+      "uschema.initvalu",
       "uschema.mergeprop",
       "uschema.objliter",
       "uschema.reg",
       "utilidad",
       "valid",
       "valida",
+      "valor",
       "valu",
       "varia",
       "verifica",
@@ -2291,17 +2452,6 @@ window.lunrData = {
       "description": "",
       "body": ""
     },
-    "list_class.html": {
-      "id": "list_class.html",
-      "kind": "list",
-      "title": "Classes",
-      "longname": "list:class",
-      "name": "Classes",
-      "tags": "list:class",
-      "summary": "All documented classes.",
-      "description": "",
-      "body": ""
-    },
     "list_namespace.html": {
       "id": "list_namespace.html",
       "kind": "list",
@@ -2310,6 +2460,17 @@ window.lunrData = {
       "name": "Namespaces",
       "tags": "list:namespace",
       "summary": "All documented namespaces.",
+      "description": "",
+      "body": ""
+    },
+    "list_class.html": {
+      "id": "list_class.html",
+      "kind": "list",
+      "title": "Classes",
+      "longname": "list:class",
+      "name": "Classes",
+      "tags": "list:class",
+      "summary": "All documented classes.",
       "description": "",
       "body": ""
     },
@@ -2355,6 +2516,26 @@ window.lunrData = {
       "description": "Utilidades varias",
       "body": ""
     },
+    "uSchema.html#.initValues": {
+      "id": "uSchema.html#.initValues",
+      "kind": "function",
+      "title": "&lt;static&gt; initValues( _this )",
+      "longname": "uSchema.initValues",
+      "name": "initValues",
+      "tags": "uSchema.initValues initValues",
+      "summary": "",
+      "description": "Setea los valores por defecto del constructor"
+    },
+    "uSchema.html#.mergeProps": {
+      "id": "uSchema.html#.mergeProps",
+      "kind": "function",
+      "title": "&lt;static&gt; mergeProps( target, schema, parentProp ) → {Object}",
+      "longname": "uSchema.mergeProps",
+      "name": "mergeProps",
+      "tags": "uSchema.mergeProps mergeProps",
+      "summary": "",
+      "description": "Realiza un merge de los registros obtenidos por el tratado de un subschema."
+    },
     "uSchema.html#.objLiteral": {
       "id": "uSchema.html#.objLiteral",
       "kind": "function",
@@ -2375,16 +2556,6 @@ window.lunrData = {
       "summary": "",
       "description": "Registra incidentes dentro de un objeto, para que sirva de log o para el compilado."
     },
-    "uSchema.html#.mergeProps": {
-      "id": "uSchema.html#.mergeProps",
-      "kind": "function",
-      "title": "&lt;static&gt; mergeProps( target, schema, parentProp ) → {Object}",
-      "longname": "uSchema.mergeProps",
-      "name": "mergeProps",
-      "tags": "uSchema.mergeProps mergeProps",
-      "summary": "",
-      "description": "Realiza un merge de los registros obtenidos por el tratado de un subschema."
-    },
     "uSchema.getType.html": {
       "id": "uSchema.getType.html",
       "kind": "namespace",
@@ -2396,16 +2567,6 @@ window.lunrData = {
       "description": "Devuelve el tipo de dato de una propiedad en un ojeto",
       "body": ""
     },
-    "uSchema.getType.html#.obj": {
-      "id": "uSchema.getType.html#.obj",
-      "kind": "function",
-      "title": "&lt;static&gt; obj( value ) → {String}",
-      "longname": "uSchema.getType.obj",
-      "name": "obj",
-      "tags": "uSchema.getType.obj getType.obj obj",
-      "summary": "",
-      "description": "Devuelve el tipo de dato de una propiedad de un objeto comun y corriente."
-    },
     "uSchema.getType.html#.schema": {
       "id": "uSchema.getType.html#.schema",
       "kind": "function",
@@ -2415,6 +2576,16 @@ window.lunrData = {
       "tags": "uSchema.getType.schema getType.schema schema",
       "summary": "",
       "description": "Devuelve el tipo de dato de una propiedad de un objeto schema."
+    },
+    "uSchema.getType.html#.obj": {
+      "id": "uSchema.getType.html#.obj",
+      "kind": "function",
+      "title": "&lt;static&gt; obj( value ) → {String}",
+      "longname": "uSchema.getType.obj",
+      "name": "obj",
+      "tags": "uSchema.getType.obj getType.obj obj",
+      "summary": "",
+      "description": "Devuelve el tipo de dato de una propiedad de un objeto comun y corriente."
     }
   }
 };

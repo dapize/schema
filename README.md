@@ -74,7 +74,7 @@ Cuando se espera que el valor de una propiedad en un objeto a validar sea de má
 
 ```javascript
 const objSchema = {
-  tasks: ['string', 'array'] // digamos que tienes solo una tarea (string) o varias (array).
+  tasks: ['string', 'array'] // digamos que tienes solo un 'task' (string) o varias (array).
 };
 const tasksSchema = new Schema(objSchema); // inicializamos el schema.
 ```
@@ -85,7 +85,7 @@ const tasksSchema = new Schema(objSchema); // inicializamos el schema.
 
 
 ### Métodos disponibles
-- validate(Object) : Sirve para validar el esquema con un objeto. Comunmente el objeto es un response de una llamada ajax.
+- validate(Object) : Sirve para validar un objeto con el esquema. Comunmente el objeto es un response de una solicitud (tal vez un ajax).
 
 ```javascript
 // Verificamos si es válido un objeto con el esquema creado más arriba
@@ -131,6 +131,67 @@ myTitle.compile();
     title: 'Título cualquiera',
     description: 'Ejemplo de descripción',
     authors: 'Loki'
+  }
+*/
+```
+
+### Compilación doble:
+Vá a ver casos en donde necesitemos compilar más de un objeto con el mismo schema, ejemplo:
+
+```javascript
+const myObj = {
+  image: {
+    type: 'string',
+    required: true
+  },
+  'image-alt': 'string',
+  'image-title': 'string',
+  title: {
+    type: 'string',
+    required: true
+  },
+  'title-tag': {
+    type: 'string',
+    default: 'h4'
+  },
+  description: 'string'
+};
+
+const mySchema = new Schema(myObj);
+
+// Response 1:
+mySchema.compile({
+  image: '../../assets/images/premio.png',
+  title: 'Costo Cero',
+  description: 'Esta es una descripción extraña'
+});
+
+/*
+  =>
+
+  {
+    description: "Esta es una descripción extraña"
+    image: "../../assets/images/premio.png",
+    title: "Costo Cero",
+    "title-tag": "h4"
+  }
+*/
+
+// Response 2:
+mySchema.compile({
+  image: '../../assets/images/premio2.png',
+  title: 'Costo Cero 2',
+  description: 'Esta es una descripción extraña 2'
+});
+
+/*
+  =>
+
+  {
+    description: "Esta es una descripción extraña 2"
+    image: "../../assets/images/premio2.png",
+    title: "Costo Cero 2",
+    "title-tag": "h4"
   }
 */
 ```

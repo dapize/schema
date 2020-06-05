@@ -54,4 +54,51 @@ describe('Method compile', () => {
 
   });
 
+  test('2 compilations with 1 schema', () => {
+
+    const myObj = {
+      image: {
+        type: 'string',
+        required: true
+      },
+      'image-alt': 'string',
+      'image-title': 'string',
+      title: {
+        type: 'string',
+        required: true
+      },
+      'title-tag': {
+        type: 'string',
+        default: 'h4'
+      },
+      description: 'string'
+    };
+    
+    const myResponse1 = {
+      image: '../../assets/images/premio.png',
+      title: 'Costo Cero',
+      description: 'Esta es una descripción'
+    };
+
+    const myResponse2 = {
+      image: '../../assets/images/premio2.png',
+      title: 'Costo Cero 2',
+      description: 'Esta es una descripción 2'
+    };
+    
+    const mySchema = new Schema(myObj);
+
+    expect(mySchema.compile(myResponse1)).toEqual({
+      description: "Esta es una descripción",
+      image: "../../assets/images/premio.png",
+      title: "Costo Cero",
+      "title-tag": "h4"
+    });
+    expect(mySchema.compile(myResponse2)).toEqual({
+      description: "Esta es una descripción 2",
+      image: "../../assets/images/premio2.png",
+      title: "Costo Cero 2",
+      "title-tag": "h4"
+    });
+  });
 });

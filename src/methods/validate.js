@@ -4,6 +4,10 @@
  * @returns {Boolean} Indica si el objeto pasado es válido o no con el schema.
  */
 Schema.prototype.validate = function (response) {
+  // resetting previus values
+  uSchema.initValues(this);
+  
+  // init
   const schema = this.schema,
         _this = this;
   let retorno = true; // by default, is valid :)

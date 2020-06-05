@@ -14,12 +14,7 @@
  * const card = new Schema(schema);
  */
 function Schema (obj) {
+  if (!obj) return console.log('Object missing ', obj);
   this.schema = Object.assign({}, obj);
-  this.missings = {
-    required: [],
-    optional: []
-  };
-  this.different = {};
-  this.errors = [];
-  this.compiled = {};
+  uSchema.initValues(this);
 };
