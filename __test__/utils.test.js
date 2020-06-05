@@ -1,5 +1,19 @@
 const uSchema = require('../dist/utils');
 
+test('setting values init', () => {
+  const obj = {};
+  uSchema.initValues(obj);
+  expect(obj).toEqual({
+    missings: {
+      required: [],
+      optional: []
+    },
+    different: {},
+    errors: [],
+    compiled: {}
+  })
+});
+
 test('is a obj literal', () => {
   const myObj = {};
   expect(uSchema.objLiteral(myObj)).toBeTruthy();
@@ -47,7 +61,6 @@ describe('rec log', () => {
     expect(colors).toEqual(['black', 'black']);
   });
 });
-
 
 test('merge propertie', () => {
   const instanceParent = {

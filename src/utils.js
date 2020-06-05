@@ -4,6 +4,19 @@
  * @property {Array} typesAccepted Lista de tipos aceptados para ser procesados.
  */
 const uSchema = {
+  /**
+   * Setea los valores por defecto del constructor
+   * @param {Function} _this Constructor
+   */
+  initValues: function (_this) {
+    _this.missings = {
+      required: [],
+      optional: []
+    };
+    _this.different = {};
+    _this.errors = [];
+    _this.compiled = {};
+  },
 
   /**
    * Verifica si lo pasado es un objeto literal o no
@@ -117,5 +130,4 @@ const uSchema = {
       };
     });
   }
-
 };
