@@ -153,6 +153,11 @@ function Schema (obj) {
   this.schema = Object.assign({}, obj);
   uSchema.initValues(this);
 };
+
+/**
+ * Muestra la versión actual de la librería.
+ */
+Schema.version = '1.0Beta';
 /**
  * Fusiona el objeto pasado con el schema creado
  * @param {Object} [obj] Objeto que se necesita compilar con el squema creado.

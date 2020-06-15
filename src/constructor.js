@@ -18,3 +18,8 @@ function Schema (obj) {
   this.schema = Object.assign({}, obj);
   uSchema.initValues(this);
 };
+
+/**
+ * Muestra la versión actual de la librería.
+ */
+Schema.version = '1.0Beta';
