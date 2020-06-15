@@ -197,6 +197,7 @@ mySchema.compile({
 ```
 
 ### Getters
+#### Locales
 - different : Devuelve los valores diferentes entre el esquema y el objeto pasado.
 - missings.required : Devuelve una lista de las propiedades requeridas inexistentes.
 - missings.optional : Devuelve una lista de las propiedades opcionales inexistentes.
@@ -208,6 +209,13 @@ console.log(myTitle.different);
 console.log(myTitle.missings.required);
 console.log(myTitle.missings.optional);
 console.log(myTitle.errors);
+```
+#### Generales
+- **Schema.version** : Variable estática. Imprime la versión actual de la librería.
+```javascript
+console.log(Schema.version);
+// =>
+1.0Beta
 ```
 
 ## Navegadores compatibles
