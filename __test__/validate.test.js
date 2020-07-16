@@ -146,5 +146,19 @@ describe('Validate', () => {
     expect(validString).toBeTruthy();
     expect(validArray).toBeTruthy();
   });
+
+  test('Large mixed types', () => {
+    const myObj = {
+      tasks: {
+        type: ['string', 'array'],
+        default: 'nothing'
+      }
+    };
+    const tasksSchema = new Schema(myObj);
+    const validString = tasksSchema.validate({tasks: 'simple tasks'});
+    const validArray = tasksSchema.validate({tasks: ['first tasks', 'second tasks']});
+    expect(validString).toBeTruthy();
+    expect(validArray).toBeTruthy();
+  });
  
 });

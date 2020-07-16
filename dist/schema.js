@@ -66,7 +66,7 @@ const uSchema = {
         retorno = 'mixed';
       } else {
         if (uSchema.objLiteral(value)) {
-          retorno = value.hasOwnProperty('type') ? value.type : 'object';
+          retorno = value.hasOwnProperty('type') ? this.schema(value.type) : 'object';
         } else {
           const typeOfVal = typeof value;
           if (typeOfVal === 'string') {
@@ -157,7 +157,7 @@ function Schema (obj) {
 /**
  * Muestra la versión actual de la librería.
  */
-Schema.version = '1.0Beta';
+Schema.version = '1.0.1Beta';
 /**
  * Fusiona el objeto pasado con el schema creado
  * @param {Object} [obj] Objeto que se necesita compilar con el squema creado.
@@ -230,7 +230,8 @@ Schema.prototype.validate = function (response) {
           break;
         
         case 'mixed':
-          const typesValid = valPropSchema.filter(function (type) {
+          const arrTypes = Array.isArray(valPropSchema) ? valPropSchema : valPropSchema.type;
+          const typesValid = arrTypes.filter(function (type) {
             return type === getTypeValObj;
           });
           // no body match with any types items.

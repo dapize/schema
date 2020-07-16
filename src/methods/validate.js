@@ -61,7 +61,8 @@ Schema.prototype.validate = function (response) {
           break;
         
         case 'mixed':
-          const typesValid = valPropSchema.filter(function (type) {
+          const arrTypes = Array.isArray(valPropSchema) ? valPropSchema : valPropSchema.type;
+          const typesValid = arrTypes.filter(function (type) {
             return type === getTypeValObj;
           });
           // no body match with any types items.
