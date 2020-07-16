@@ -64,7 +64,7 @@ const uSchema = {
         retorno = 'mixed';
       } else {
         if (uSchema.objLiteral(value)) {
-          retorno = value.hasOwnProperty('type') ? value.type : 'object';
+          retorno = value.hasOwnProperty('type') ? this.schema(value.type) : 'object';
         } else {
           const typeOfVal = typeof value;
           if (typeOfVal === 'string') {
