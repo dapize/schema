@@ -101,4 +101,36 @@ describe('Method compile', () => {
       "title-tag": "h4"
     });
   });
+
+  test('Compilation with default falsy value', () => {
+
+    const myObj = {
+      title: {
+        type: 'string',
+        required: true
+      },
+      amount: {
+        type: 'number',
+        default: 0
+      },
+      deleted: {
+        type: 'boolean',
+        default: false
+      },
+      description: 'string'
+    };
+    
+    const myResponse = {
+      title: 'Costo Cero'
+    };
+    
+    const mySchema = new Schema(myObj);
+
+    expect(mySchema.compile(myResponse)).toEqual({
+      title: "Costo Cero",
+      amount: 0,
+      deleted: false
+    });
+
+  });
 });

@@ -91,7 +91,7 @@ Schema.prototype.validate = function (response) {
         missing = 'optional';
       }
       uSchema.reg(_this.missings[missing], property);
-      if (valPropSchema.default) _this.compiled[property] = valPropSchema.default;
+      if (valPropSchema.hasOwnProperty('default')) _this.compiled[property] = valPropSchema.default;
     }
   });
 

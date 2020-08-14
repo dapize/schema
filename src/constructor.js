@@ -22,4 +22,4 @@ function Schema (obj) {
 /**
  * Muestra la versión actual de la librería.
  */
-Schema.version = '1.0.1Beta';
+Schema.version = '1.0.2Beta';
