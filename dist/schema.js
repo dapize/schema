@@ -157,7 +157,7 @@ function Schema (obj) {
 /**
  * Muestra la versión actual de la librería.
  */
-Schema.version = '1.0.1Beta';
+Schema.version = '1.0.2Beta';
 /**
  * Fusiona el objeto pasado con el schema creado
  * @param {Object} [obj] Objeto que se necesita compilar con el squema creado.
@@ -260,7 +260,7 @@ Schema.prototype.validate = function (response) {
         missing = 'optional';
       }
       uSchema.reg(_this.missings[missing], property);
-      if (valPropSchema.default) _this.compiled[property] = valPropSchema.default;
+      if (valPropSchema.hasOwnProperty('default')) _this.compiled[property] = valPropSchema.default;
     }
   });
 
